@@ -1,8 +1,12 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import styled from "styled-components";
 import Image from "next/image";
+
+const TRANSITION_DURATION = 300;
+const DRAG_THRESHOLD = 0.15;
+const BREAKPOINT_MOBILE = 768;
 
 const SliderContainer = styled.div`
   width: 100%;
@@ -16,8 +20,13 @@ const SliderContainer = styled.div`
   &:active {
     cursor: grabbing;
   }
-  
-  @media (max-width: 768px) {
+
+  &:focus-visible {
+    outline: 2px solid #0070f3;
+    outline-offset: 2px;
+  }
+
+  @media (max-width: ${BREAKPOINT_MOBILE}px) {
     height: 100%;
     max-width: 100%;
   }
@@ -31,7 +40,7 @@ const ImageStrip = styled.div<{
   height: 100%;
   transform: translateX(${(props) => props.$translateX}px);
   transition: ${(props) =>
-    props.$isTransitioning ? "transform 0.3s ease-out" : "none"};
+    props.$isTransitioning ? `transform ${TRANSITION_DURATION}ms ease-out` : "none"};
   will-change: transform;
 `;
 
@@ -68,18 +77,32 @@ const NavigationButton = styled.button`
   cursor: pointer;
   font-size: 1.2rem;
   color: #333;
-  transition: all 0.3s ease;
-  z-index: 20;
+  transition: all ${TRANSITION_DURATION}ms ease;
+  z-index: 100;
   opacity: 0.7;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
 
   &:hover {
     opacity: 1;
     background: rgba(255, 255, 255, 0.95);
   }
 
+  &:focus-visible {
+    outline: 2px solid #0070f3;
+    outline-offset: 2px;
+  }
+
   &:disabled {
     opacity: 0.3;
     cursor: not-allowed;
+  }
+
+  @media (max-width: ${BREAKPOINT_MOBILE}px) {
+    width: 44px;
+    height: 44px;
+    font-size: 1.4rem;
   }
 `;
 
@@ -98,6 +121,9 @@ const ImageCounter = styled.div`
   transform: translateX(-50%);
   font-size: 0.8rem;
   color: #666;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 4px 8px;
+  border-radius: 12px;
 `;
 
 const LoadingMessage = styled.div`
@@ -109,48 +135,44 @@ const LoadingMessage = styled.div`
   color: #666;
 `;
 
+const DEFAULT_IMAGES = [
+  "/images/Familien-Fotografie-1.jpg",
+  "/images/Familien-Fotografie.jpg",
+  "/images/family-portrait.jpg",
+  "/images/Fotograf-Portraits.jpg",
+  "/images/Fotografie-Portraits.jpg",
+  "/images/Fotografin-Berlin.jpg",
+];
+
+interface DragState {
+  isDragging: boolean;
+  startX: number;
+  startTranslateX: number;
+  currentX: number;
+}
+
 interface ImageSliderProps {
   images?: string[];
 }
 
 export default function ImageSlider({ images = [] }: ImageSliderProps) {
-  const [imageList] = useState<string[]>(() => {
-    if (images.length > 0) {
-      return images;
-    } else {
-      return [
-        "/images/Familien-Fotografie-1.jpg",
-        "/images/Familien-Fotografie.jpg",
-        "/images/family-portrait.jpg",
-        "/images/Fotograf-Portraits.jpg",
-        "/images/Fotografie-Portraits.jpg",
-        "/images/Fotografin-Berlin.jpg",
-      ];
-    }
-  });
+  const imageList = useMemo(() => 
+    images.length > 0 ? images : DEFAULT_IMAGES, [images]
+  );
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [translateX, setTranslateX] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [startTranslateX, setStartTranslateX] = useState(0);
+  const [dragState, setDragState] = useState<DragState>({
+    isDragging: false,
+    startX: 0,
+    startTranslateX: 0,
+    currentX: 0,
+  });
 
   const containerRef = useRef<HTMLDivElement>(null);
-  const stripRef = useRef<HTMLDivElement>(null);
-  const currentXRef = useRef(0);
+  const [imageWidth, setImageWidth] = useState(900);
 
-  // Create extended image list for seamless looping
-  const extendedImageList = [
-    ...imageList.slice(-2), // Last 2 images at the beginning
-    ...imageList,
-    ...imageList.slice(0, 2), // First 2 images at the end
-  ];
-
-  const [imageWidth, setImageWidth] = useState(900); // Default fallback
-  const baseOffset = -2 * imageWidth; // Offset for the prepended images
-
-  // Set proper image width on mount and resize
   useEffect(() => {
     const updateImageWidth = () => {
       if (containerRef.current) {
@@ -160,40 +182,44 @@ export default function ImageSlider({ images = [] }: ImageSliderProps) {
       }
     };
 
-    updateImageWidth(); // Set initial width
+    updateImageWidth();
     window.addEventListener("resize", updateImageWidth);
-
     return () => window.removeEventListener("resize", updateImageWidth);
   }, []);
 
-  // Calculate the correct translateX for a given index
+  const extendedImageList = useMemo(() => [
+    ...imageList.slice(-1),
+    ...imageList,
+    ...imageList.slice(0, 1),
+  ], [imageList]);
+
   const getTranslateXForIndex = useCallback(
-    (index: number) => {
-      return baseOffset - index * imageWidth;
-    },
-    [baseOffset, imageWidth]
+    (index: number) => -(index + 1) * imageWidth,
+    [imageWidth]
   );
 
-  // Initialize position based on current index
   useEffect(() => {
-    if (!isDragging) {
-      const newTranslateX = getTranslateXForIndex(currentIndex);
-      setTranslateX(newTranslateX);
+    if (!dragState.isDragging) {
+      setTranslateX(getTranslateXForIndex(currentIndex));
     }
-  }, [currentIndex, imageWidth, baseOffset, isDragging, getTranslateXForIndex]);
+  }, [currentIndex, imageWidth, dragState.isDragging, getTranslateXForIndex]);
+
+  const normalizeIndex = useCallback(
+    (index: number) => ((index % imageList.length) + imageList.length) % imageList.length,
+    [imageList.length]
+  );
 
   const goToSlide = useCallback(
     (index: number, smooth = true) => {
-      const newIndex =
-        ((index % imageList.length) + imageList.length) % imageList.length;
+      const newIndex = normalizeIndex(index);
       setCurrentIndex(newIndex);
 
       if (smooth) {
         setIsTransitioning(true);
-        setTimeout(() => setIsTransitioning(false), 300);
+        setTimeout(() => setIsTransitioning(false), TRANSITION_DURATION);
       }
     },
-    [imageList.length]
+    [normalizeIndex]
   );
 
   const nextImage = useCallback(() => {
@@ -204,90 +230,66 @@ export default function ImageSlider({ images = [] }: ImageSliderProps) {
     goToSlide(currentIndex - 1);
   }, [currentIndex, goToSlide]);
 
-  // Drag handlers
   const handleStart = useCallback(
     (clientX: number) => {
-      setIsDragging(true);
+      setDragState({
+        isDragging: true,
+        startX: clientX,
+        startTranslateX: translateX,
+        currentX: clientX,
+      });
       setIsTransitioning(false);
-      setStartX(clientX);
-      setStartTranslateX(translateX);
-      currentXRef.current = clientX;
     },
     [translateX]
   );
 
   const handleMove = useCallback(
     (clientX: number) => {
-      if (!isDragging) return;
+      if (!dragState.isDragging) return;
 
-      const deltaX = clientX - startX;
-      const newTranslateX = startTranslateX + deltaX;
-      currentXRef.current = clientX;
-
+      const deltaX = clientX - dragState.startX;
+      const newTranslateX = dragState.startTranslateX + deltaX;
+      
+      setDragState(prev => ({ ...prev, currentX: clientX }));
       setTranslateX(newTranslateX);
     },
-    [isDragging, startX, startTranslateX]
+    [dragState.isDragging, dragState.startX, dragState.startTranslateX]
   );
 
   const handleEnd = useCallback(() => {
-    if (!isDragging) return;
+    if (!dragState.isDragging) return;
 
-    setIsDragging(false);
-
-    // Calculate drag distance using the ref
-    const totalDrag = currentXRef.current - startX;
-    const threshold = imageWidth * 0.15; // 15% of screen width
+    const totalDrag = dragState.currentX - dragState.startX;
+    const threshold = imageWidth * DRAG_THRESHOLD;
     let targetIndex = currentIndex;
 
-    // Determine direction based on total drag
     if (Math.abs(totalDrag) > threshold) {
-      if (totalDrag > 0) {
-        // Dragged right, go to previous image
-        targetIndex = currentIndex - 1;
-      } else {
-        // Dragged left, go to next image
-        targetIndex = currentIndex + 1;
-      }
+      targetIndex = totalDrag > 0 ? currentIndex - 1 : currentIndex + 1;
     }
 
-    // Normalize the target index for infinite loop
-    let normalizedIndex = targetIndex;
-    while (normalizedIndex < 0) normalizedIndex += imageList.length;
-    while (normalizedIndex >= imageList.length)
-      normalizedIndex -= imageList.length;
+    setDragState(prev => ({ ...prev, isDragging: false }));
+    goToSlide(targetIndex);
+  }, [dragState, imageWidth, currentIndex, goToSlide]);
 
-    // Snap to the target image with smooth animation
-    setIsTransitioning(true);
-    setCurrentIndex(normalizedIndex);
-
-    setTimeout(() => setIsTransitioning(false), 300);
-  }, [isDragging, startX, imageWidth, currentIndex, imageList.length]);
-
-  // Mouse events
   const handleMouseDown = (e: React.MouseEvent) => {
     e.preventDefault();
     handleStart(e.clientX);
   };
 
-  // Touch events
   const handleTouchStart = (e: React.TouchEvent) => {
-    e.preventDefault();
     handleStart(e.touches[0].clientX);
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
-    e.preventDefault();
     handleMove(e.touches[0].clientX);
   };
 
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    e.preventDefault();
+  const handleTouchEnd = () => {
     handleEnd();
   };
 
-  // Global event listeners for drag
   useEffect(() => {
-    if (!isDragging) return;
+    if (!dragState.isDragging) return;
 
     const handleGlobalMouseMove = (e: MouseEvent) => {
       handleMove(e.clientX);
@@ -304,34 +306,34 @@ export default function ImageSlider({ images = [] }: ImageSliderProps) {
       document.removeEventListener("mousemove", handleGlobalMouseMove);
       document.removeEventListener("mouseup", handleGlobalMouseUp);
     };
-  }, [isDragging, startX, startTranslateX, handleMove, handleEnd]);
+  }, [dragState.isDragging, handleMove, handleEnd]);
 
-  // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "ArrowRight") {
-        nextImage();
-      }
-      if (e.key === "ArrowLeft") {
-        prevImage();
+      if (containerRef.current === document.activeElement || document.activeElement?.closest('[data-slider-container]')) {
+        if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+          e.preventDefault();
+          nextImage();
+        } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+          e.preventDefault();
+          prevImage();
+        } else if (e.key === "Home") {
+          e.preventDefault();
+          goToSlide(0);
+        } else if (e.key === "End") {
+          e.preventDefault();
+          goToSlide(imageList.length - 1);
+        }
       }
     };
 
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [nextImage, prevImage]);
-
-  // Update position when imageWidth changes
-  useEffect(() => {
-    if (!isDragging) {
-      const newTranslateX = getTranslateXForIndex(currentIndex);
-      setTranslateX(newTranslateX);
-    }
-  }, [imageWidth, currentIndex, isDragging, getTranslateXForIndex]);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [nextImage, prevImage, goToSlide, imageList.length]);
 
   if (imageList.length === 0) {
     return (
-      <SliderContainer>
+      <SliderContainer role="region" aria-label="Image gallery">
         <LoadingMessage>
           No images found. Please add images to the /public/images folder.
         </LoadingMessage>
@@ -342,45 +344,60 @@ export default function ImageSlider({ images = [] }: ImageSliderProps) {
   return (
     <SliderContainer
       ref={containerRef}
+      role="region"
+      aria-label="Image gallery"
+      aria-live="polite"
+      tabIndex={0}
+      data-slider-container
       onMouseDown={handleMouseDown}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
       <ImageStrip
-        ref={stripRef}
         $translateX={translateX}
         $isTransitioning={isTransitioning}
+        role="group"
+        aria-label={`Image ${currentIndex + 1} of ${imageList.length}`}
       >
-        {extendedImageList.map((imageSrc, index) => (
-          <ImageWrapper key={`${imageSrc}-${index}`}>
-            <StyledImage
-              src={imageSrc}
-              alt={`Portfolio image ${
-                ((((index - 2) % imageList.length) + imageList.length) %
-                  imageList.length) +
-                1
-              }`}
-              fill
-              priority={index === 2 || index === currentIndex + 2} // Prioritize current and first image
-              loading={
-                index === 2 || index === currentIndex + 2 ? "eager" : "lazy"
-              }
-            />
-          </ImageWrapper>
-        ))}
+        {extendedImageList.map((imageSrc, index) => {
+          const actualIndex = index === 0 ? imageList.length - 1 : 
+                             index === extendedImageList.length - 1 ? 0 : 
+                             index - 1;
+          return (
+            <ImageWrapper key={`${imageSrc}-${index}`} role="img">
+              <StyledImage
+                src={imageSrc}
+                alt={`Portfolio image ${actualIndex + 1}`}
+                fill
+                priority={index === currentIndex + 1}
+                loading={index === currentIndex + 1 ? "eager" : "lazy"}
+              />
+            </ImageWrapper>
+          );
+        })}
       </ImageStrip>
 
-      <PrevButton onClick={prevImage} style={{ opacity: isDragging ? 0 : 0.7 }}>
+      <PrevButton
+        onClick={prevImage}
+        disabled={imageList.length <= 1}
+        aria-label="Previous image"
+        style={{ opacity: dragState.isDragging ? 0 : 0.7 }}
+      >
         ‹
       </PrevButton>
 
-      <NextButton onClick={nextImage} style={{ opacity: isDragging ? 0 : 0.7 }}>
+      <NextButton
+        onClick={nextImage}
+        disabled={imageList.length <= 1}
+        aria-label="Next image" 
+        style={{ opacity: dragState.isDragging ? 0 : 0.7 }}
+      >
         ›
       </NextButton>
 
       {imageList.length > 1 && (
-        <ImageCounter>
+        <ImageCounter aria-live="polite">
           {currentIndex + 1} / {imageList.length}
         </ImageCounter>
       )}
