@@ -7,7 +7,7 @@ import Image from "next/image";
 const SliderContainer = styled.div`
   width: 100%;
   max-width: 900px;
-  height: 85vh;
+  height: 100%;
   position: relative;
   overflow: hidden;
   cursor: grab;
@@ -15,6 +15,11 @@ const SliderContainer = styled.div`
 
   &:active {
     cursor: grabbing;
+  }
+  
+  @media (max-width: 768px) {
+    height: 100%;
+    max-width: 100%;
   }
 `;
 

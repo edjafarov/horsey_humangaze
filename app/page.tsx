@@ -19,10 +19,19 @@ const LoadingContainer = styled.div`
 `;
 
 const PageContainer = styled.div`
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   background-color: #f3f5fd;
+  overflow: hidden;
+  
+  @media (max-width: 768px) {
+    height: 100vh;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+  }
 `;
 
 const MainContent = styled.main`

@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const FooterContainer = styled.footer`
   display: flex;
@@ -9,6 +9,14 @@ const FooterContainer = styled.footer`
   padding: 1rem 2rem;
   background-color: #f3f5fd;
   margin-top: auto;
+  flex-shrink: 0;
+
+  @media (max-width: 768px) {
+    padding: 0.5rem 1rem;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
 `;
 
 const ContactInfo = styled.div`
@@ -20,8 +28,9 @@ const ContactInfo = styled.div`
 
   @media (max-width: 768px) {
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.3rem;
     text-align: center;
+    font-size: 0.7rem;
   }
 `;
 
@@ -37,7 +46,7 @@ const ContactItem = styled.a`
 
 const Separator = styled.span`
   color: #ccc;
-  
+
   @media (max-width: 768px) {
     display: none;
   }
@@ -51,11 +60,13 @@ export default function Footer() {
           your.email@example.com
         </ContactItem>
         <Separator>•</Separator>
-        <ContactItem href="tel:+1234567890">
-          +1 (234) 567-890
-        </ContactItem>
+        <ContactItem href="tel:+1234567890">+1 (234) 567-890</ContactItem>
         <Separator>•</Separator>
-        <ContactItem href="https://instagram.com/yourusername" target="_blank" rel="noopener noreferrer">
+        <ContactItem
+          href="https://instagram.com/yourusername"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Instagram
         </ContactItem>
       </ContactInfo>
