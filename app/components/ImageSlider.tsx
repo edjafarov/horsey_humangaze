@@ -6,10 +6,12 @@ import Image from "next/image";
 
 const SliderContainer = styled.div`
   width: 100%;
-  height: 80vh;
+  max-width: 900px;
+  height: 85vh;
   position: relative;
   overflow: hidden;
   cursor: grab;
+  margin: 0 auto;
 
   &:active {
     cursor: grabbing;
@@ -29,20 +31,19 @@ const ImageStrip = styled.div<{
 `;
 
 const ImageWrapper = styled.div`
-  flex: 0 0 100vw;
+  flex: 0 0 100%;
   height: 100%;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
+  background: #f3f5fd;
 `;
 
 const StyledImage = styled(Image)`
   object-fit: contain;
-  max-width: 90%;
-  max-height: 90%;
-  width: auto;
-  height: auto;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
   user-select: none;
 `;
@@ -141,13 +142,17 @@ export default function ImageSlider({ images = [] }: ImageSliderProps) {
     ...imageList.slice(0, 2), // First 2 images at the end
   ];
 
-  const [imageWidth, setImageWidth] = useState(1000); // Default fallback
+  const [imageWidth, setImageWidth] = useState(900); // Default fallback
   const baseOffset = -2 * imageWidth; // Offset for the prepended images
 
   // Set proper image width on mount and resize
   useEffect(() => {
     const updateImageWidth = () => {
-      setImageWidth(window.innerWidth);
+      if (containerRef.current) {
+        setImageWidth(containerRef.current.offsetWidth);
+      } else {
+        setImageWidth(Math.min(window.innerWidth, 900));
+      }
     };
 
     updateImageWidth(); // Set initial width
@@ -351,8 +356,7 @@ export default function ImageSlider({ images = [] }: ImageSliderProps) {
                   imageList.length) +
                 1
               }`}
-              width={800}
-              height={600}
+              fill
               priority={index === 2 || index === currentIndex + 2} // Prioritize current and first image
               loading={
                 index === 2 || index === currentIndex + 2 ? "eager" : "lazy"
