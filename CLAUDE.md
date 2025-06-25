@@ -14,20 +14,31 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 This is a Next.js 15 application using the App Router architecture with the following structure:
 
 - **App Directory Structure**: Uses Next.js App Router (`app/` directory)
-  - `app/layout.tsx` - Root layout with Geist font configuration
-  - `app/page.tsx` - Home page component
-  - `app/globals.css` - Global styles
-  - `app/page.module.css` - Page-specific CSS modules
+  - `app/layout.tsx` - Root layout with Header, Menu, Footer components and SEO metadata
+  - `app/page.tsx` - Home page with image slider
+  - `app/components/` - Reusable components (Header, Footer, Menu, ImageSlider, etc.)
+  - `app/data/imageMetadata.ts` - SEO metadata for images
+  - Individual page routes: portfolio, preis, reitbetriebe, kontakt, impressum, datenschutzerklaerung
 
 - **TypeScript Configuration**: Strict TypeScript setup with path aliasing (`@/*` maps to root)
 
-- **Styling**: CSS Modules for component-specific styles, Geist fonts (sans and mono) loaded via next/font
+- **Styling**: 
+  - styled-components v6 with TypeScript support
+  - Next.js compiler configured for styled-components
+  - Geist fonts (sans and mono) loaded via next/font
 
 - **Linting**: ESLint with Next.js core web vitals and TypeScript rules
 
-- **Styling Libraries**: 
-  - CSS Modules (existing)
-  - styled-components v6 with TypeScript support
-  - Next.js compiler configured for styled-components
+## SEO Workflow
 
-The project follows standard Next.js conventions with the modern App Router pattern.
+When adding or updating images in the slider:
+
+1. **Add images to**: `/public/images/` directory
+2. **Update metadata**: Edit `app/data/imageMetadata.ts` with:
+   - German SEO-optimized title
+   - Descriptive German description (include keywords: Pferdefotografie, Pferde, Reitbetriebe, etc.)
+   - Alt text in German describing the image content
+3. **JSON-LD**: The structured data is automatically generated from imageMetadata.ts
+4. **Image optimization**: Use descriptive filenames and ensure images are optimized for web
+
+The project follows standard Next.js conventions with the modern App Router pattern and includes comprehensive SEO optimization for German-speaking audiences.

@@ -24,6 +24,10 @@ const MenuSection = styled.aside`
   display: flex;
   align-items: center;
   background-color: #f3f5fd;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const ContentSection = styled.div`
