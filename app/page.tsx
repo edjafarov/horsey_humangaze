@@ -2,8 +2,6 @@
 
 import dynamic from 'next/dynamic';
 import styled from 'styled-components';
-import Header from './components/Header';
-import Footer from './components/Footer';
 
 const ImageSlider = dynamic(() => import('./components/ImageSlider'), {
   ssr: false,
@@ -14,42 +12,26 @@ const LoadingContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 80vh;
+  height: 100%;
   color: #666;
 `;
 
-const PageContainer = styled.div`
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background-color: #f3f5fd;
-  overflow: hidden;
-  
-  @media (max-width: 768px) {
-    height: 100vh;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-  }
-`;
-
-const MainContent = styled.main`
-  flex: 1;
+const SliderContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  height: 100%;
+  padding: 2rem;
+  
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
 `;
 
 export default function Home() {
   return (
-    <PageContainer>
-      <Header />
-      <MainContent>
-        <ImageSlider />
-      </MainContent>
-      <Footer />
-    </PageContainer>
+    <SliderContainer>
+      <ImageSlider />
+    </SliderContainer>
   );
 }

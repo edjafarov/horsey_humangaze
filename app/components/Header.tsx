@@ -11,25 +11,45 @@ const HeaderContainer = styled.header`
   flex-shrink: 0;
 `;
 
-const Name = styled.h1`
-  font-size: 3rem;
+const Title = styled.h1`
+  font-size: 2.5rem;
   font-weight: 400;
   color: #333;
   margin: 0;
+  text-align: center;
+  line-height: 1.2;
   
   @media (max-width: 768px) {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
   }
   
   @media (max-width: 480px) {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
+  }
+`;
+
+const Subtitle = styled.span`
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 300;
+  margin-top: 0.5rem;
+  
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1rem;
   }
 `;
 
 export default function Header() {
   return (
     <HeaderContainer>
-      <Name>Nana Kulykova</Name>
+      <Title>
+        Human Gaze Photography
+        <Subtitle>Horses</Subtitle>
+      </Title>
     </HeaderContainer>
   );
 }

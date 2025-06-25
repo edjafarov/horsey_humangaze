@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import StyledComponentsRegistry from "./components/StyledComponentsRegistry";
+import LayoutWrapper from "./components/LayoutWrapper";
+import { getJsonLdData } from "./data/imageMetadata";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,8 +16,15 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Portfolio",
-  description: "Photography Portfolio",
+  title: "Human Gaze Photography - Professionelle Pferdefotografie",
+  description: "Kunstvolle Pferdefotografie in Deutschland. Emotionale Portraits von Pferden für Reitbetriebe und Pferdebesitzer. Hochwertige Tierfotografie mit Leidenschaft.",
+  keywords: "Pferdefotografie, Pferde Portrait, Tierfotografie, Reitbetriebe, Pferdefotograf, Deutschland",
+  openGraph: {
+    title: "Human Gaze Photography - Professionelle Pferdefotografie",
+    description: "Kunstvolle Pferdefotografie in Deutschland. Emotionale Portraits von Pferden.",
+    type: "website",
+    locale: "de_DE",
+  },
 };
 
 export default function RootLayout({
@@ -23,11 +32,21 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLd = getJsonLdData();
+  
   return (
-    <html lang="en">
+    <html lang="de">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <StyledComponentsRegistry>
-          {children}
+          <LayoutWrapper>
+            {children}
+          </LayoutWrapper>
         </StyledComponentsRegistry>
       </body>
     </html>

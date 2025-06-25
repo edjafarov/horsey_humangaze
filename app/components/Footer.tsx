@@ -19,57 +19,46 @@ const FooterContainer = styled.footer`
   }
 `;
 
-const ContactInfo = styled.div`
+const LegalLinks = styled.div`
   display: flex;
-  gap: 2rem;
+  gap: 1.5rem;
   align-items: center;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   color: #666;
 
   @media (max-width: 768px) {
-    flex-direction: column;
-    gap: 0.3rem;
-    text-align: center;
-    font-size: 0.7rem;
+    gap: 1rem;
+    font-size: 0.8rem;
   }
 `;
 
-const ContactItem = styled.a`
+const LegalLink = styled.a`
   color: #666;
   text-decoration: none;
   transition: opacity 0.3s ease;
 
   &:hover {
-    opacity: 0.6;
+    opacity: 0.7;
+    text-decoration: underline;
   }
 `;
 
 const Separator = styled.span`
-  color: #ccc;
-
-  @media (max-width: 768px) {
-    display: none;
-  }
+  color: #999;
 `;
 
 export default function Footer() {
   return (
     <FooterContainer>
-      <ContactInfo>
-        <ContactItem href="mailto:your.email@example.com">
-          your.email@example.com
-        </ContactItem>
-        <Separator>•</Separator>
-        <ContactItem href="tel:+1234567890">+1 (234) 567-890</ContactItem>
-        <Separator>•</Separator>
-        <ContactItem
-          href="https://instagram.com/yourusername"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Instagram
-        </ContactItem>
-      </ContactInfo>
+      <LegalLinks>
+        <LegalLink href="/impressum">
+          Impressum
+        </LegalLink>
+        <Separator>|</Separator>
+        <LegalLink href="/datenschutzerklaerung">
+          Datenschutzerklärung
+        </LegalLink>
+      </LegalLinks>
     </FooterContainer>
   );
 }

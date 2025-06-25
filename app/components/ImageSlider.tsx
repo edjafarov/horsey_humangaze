@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import styled from "styled-components";
 import Image from "next/image";
+import { imageMetadata } from "../data/imageMetadata";
 
 const TRANSITION_DURATION = 300;
 const DRAG_THRESHOLD = 0.15;
@@ -135,15 +136,6 @@ const LoadingMessage = styled.div`
   color: #666;
 `;
 
-const DEFAULT_IMAGES = [
-  "/images/Familien-Fotografie-1.jpg",
-  "/images/Familien-Fotografie.jpg",
-  "/images/family-portrait.jpg",
-  "/images/Fotograf-Portraits.jpg",
-  "/images/Fotografie-Portraits.jpg",
-  "/images/Fotografin-Berlin.jpg",
-];
-
 interface DragState {
   isDragging: boolean;
   startX: number;
@@ -151,14 +143,8 @@ interface DragState {
   currentX: number;
 }
 
-interface ImageSliderProps {
-  images?: string[];
-}
-
-export default function ImageSlider({ images = [] }: ImageSliderProps) {
-  const imageList = useMemo(() => 
-    images.length > 0 ? images : DEFAULT_IMAGES, [images]
-  );
+export default function ImageSlider() {
+  const imageList = useMemo(() => imageMetadata, []);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [translateX, setTranslateX] = useState(0);
@@ -360,15 +346,16 @@ export default function ImageSlider({ images = [] }: ImageSliderProps) {
         role="group"
         aria-label={`Image ${currentIndex + 1} of ${imageList.length}`}
       >
-        {extendedImageList.map((imageSrc, index) => {
+        {extendedImageList.map((image, index) => {
           const actualIndex = index === 0 ? imageList.length - 1 : 
                              index === extendedImageList.length - 1 ? 0 : 
                              index - 1;
           return (
-            <ImageWrapper key={`${imageSrc}-${index}`} role="img">
+            <ImageWrapper key={`${image.src}-${index}`} role="img">
               <StyledImage
-                src={imageSrc}
-                alt={`Portfolio image ${actualIndex + 1}`}
+                src={image.src}
+                alt={image.alt}
+                title={image.title}
                 fill
                 priority={index === currentIndex + 1}
                 loading={index === currentIndex + 1 ? "eager" : "lazy"}
