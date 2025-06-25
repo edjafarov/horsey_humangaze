@@ -11,12 +11,12 @@ const BREAKPOINT_MOBILE = 768;
 
 const SliderContainer = styled.div`
   width: 100%;
-  max-width: 900px;
+  margin: 0 10%;
+  max-width: none;
   aspect-ratio: 3 / 2;
   position: relative;
   overflow: hidden;
   cursor: grab;
-  margin: 0 auto;
 
   &:active {
     cursor: grabbing;
@@ -30,6 +30,7 @@ const SliderContainer = styled.div`
   @media (max-width: ${BREAKPOINT_MOBILE}px) {
     max-width: 100%;
     aspect-ratio: 3 / 2;
+    margin: 0;
   }
 `;
 

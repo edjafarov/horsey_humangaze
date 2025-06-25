@@ -1,22 +1,14 @@
-'use client';
+"use client";
 
-import styled from 'styled-components';
+import styled from "styled-components";
+import PageContent from "../components/PageContent";
 
-const ContentSection = styled.div`
-  padding: 3rem;
-  height: 100%;
-  overflow-y: auto;
-  
-  @media (max-width: 768px) {
-    padding: 2rem;
-  }
-`;
 
 const Title = styled.h1`
   font-size: 2.5rem;
   color: #333;
   margin-bottom: 2rem;
-  
+
   @media (max-width: 768px) {
     font-size: 2rem;
   }
@@ -30,9 +22,9 @@ const Text = styled.p`
 
 export default function Portfolio() {
   return (
-    <ContentSection>
+    <PageContent>
       <Title>Portfolio</Title>
       <Text>Coming soon...</Text>
-    </ContentSection>
+    </PageContent>
   );
 }
