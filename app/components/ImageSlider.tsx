@@ -12,7 +12,7 @@ const BREAKPOINT_MOBILE = 768;
 const SliderContainer = styled.div`
   width: 100%;
   max-width: 900px;
-  height: 100%;
+  aspect-ratio: 3 / 2;
   position: relative;
   overflow: hidden;
   cursor: grab;
@@ -28,8 +28,8 @@ const SliderContainer = styled.div`
   }
 
   @media (max-width: ${BREAKPOINT_MOBILE}px) {
-    height: 100%;
     max-width: 100%;
+    aspect-ratio: 3 / 2;
   }
 `;
 
@@ -41,7 +41,9 @@ const ImageStrip = styled.div<{
   height: 100%;
   transform: translateX(${(props) => props.$translateX}px);
   transition: ${(props) =>
-    props.$isTransitioning ? `transform ${TRANSITION_DURATION}ms ease-out` : "none"};
+    props.$isTransitioning
+      ? `transform ${TRANSITION_DURATION}ms ease-out`
+      : "none"};
   will-change: transform;
 `;
 
@@ -173,11 +175,10 @@ export default function ImageSlider() {
     return () => window.removeEventListener("resize", updateImageWidth);
   }, []);
 
-  const extendedImageList = useMemo(() => [
-    ...imageList.slice(-1),
-    ...imageList,
-    ...imageList.slice(0, 1),
-  ], [imageList]);
+  const extendedImageList = useMemo(
+    () => [...imageList.slice(-1), ...imageList, ...imageList.slice(0, 1)],
+    [imageList]
+  );
 
   const getTranslateXForIndex = useCallback(
     (index: number) => -(index + 1) * imageWidth,
@@ -191,7 +192,8 @@ export default function ImageSlider() {
   }, [currentIndex, imageWidth, dragState.isDragging, getTranslateXForIndex]);
 
   const normalizeIndex = useCallback(
-    (index: number) => ((index % imageList.length) + imageList.length) % imageList.length,
+    (index: number) =>
+      ((index % imageList.length) + imageList.length) % imageList.length,
     [imageList.length]
   );
 
@@ -235,8 +237,8 @@ export default function ImageSlider() {
 
       const deltaX = clientX - dragState.startX;
       const newTranslateX = dragState.startTranslateX + deltaX;
-      
-      setDragState(prev => ({ ...prev, currentX: clientX }));
+
+      setDragState((prev) => ({ ...prev, currentX: clientX }));
       setTranslateX(newTranslateX);
     },
     [dragState.isDragging, dragState.startX, dragState.startTranslateX]
@@ -253,7 +255,7 @@ export default function ImageSlider() {
       targetIndex = totalDrag > 0 ? currentIndex - 1 : currentIndex + 1;
     }
 
-    setDragState(prev => ({ ...prev, isDragging: false }));
+    setDragState((prev) => ({ ...prev, isDragging: false }));
     goToSlide(targetIndex);
   }, [dragState, imageWidth, currentIndex, goToSlide]);
 
@@ -296,7 +298,10 @@ export default function ImageSlider() {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (containerRef.current === document.activeElement || document.activeElement?.closest('[data-slider-container]')) {
+      if (
+        containerRef.current === document.activeElement ||
+        document.activeElement?.closest("[data-slider-container]")
+      ) {
         if (e.key === "ArrowRight" || e.key === "ArrowDown") {
           e.preventDefault();
           nextImage();
@@ -347,9 +352,6 @@ export default function ImageSlider() {
         aria-label={`Image ${currentIndex + 1} of ${imageList.length}`}
       >
         {extendedImageList.map((image, index) => {
-          const actualIndex = index === 0 ? imageList.length - 1 : 
-                             index === extendedImageList.length - 1 ? 0 : 
-                             index - 1;
           return (
             <ImageWrapper key={`${image.src}-${index}`} role="img">
               <StyledImage
@@ -377,7 +379,7 @@ export default function ImageSlider() {
       <NextButton
         onClick={nextImage}
         disabled={imageList.length <= 1}
-        aria-label="Next image" 
+        aria-label="Next image"
         style={{ opacity: dragState.isDragging ? 0 : 0.7 }}
       >
         ›

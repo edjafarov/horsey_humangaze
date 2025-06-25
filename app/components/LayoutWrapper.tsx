@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import styled from "styled-components";
 import Header from "./Header";
@@ -24,28 +24,47 @@ const MenuSection = styled.aside`
   display: flex;
   align-items: center;
   background-color: #f3f5fd;
-
+  
   @media (max-width: 768px) {
     display: none;
   }
 `;
 
-const ContentSection = styled.div`
+const RightSection = styled.div`
   flex: 1;
+  display: flex;
+  flex-direction: column;
   overflow-y: auto;
+  min-height: 0;
 `;
 
-export default function LayoutWrapper({ children }: { children: React.ReactNode }) {
+const HeaderSection = styled.div`
+  background-color: #f3f5fd;
+  flex-shrink: 0;
+`;
+
+const ContentSection = styled.div`
+  flex: 1;
+  min-height: 100vh;
+`;
+
+export default function LayoutWrapper({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <PageContainer>
-      <Header />
       <MainContent>
         <MenuSection>
           <Menu />
         </MenuSection>
-        <ContentSection>
-          {children}
-        </ContentSection>
+        <RightSection>
+          <HeaderSection>
+            <Header />
+          </HeaderSection>
+          <ContentSection>{children}</ContentSection>
+        </RightSection>
       </MainContent>
       <Footer />
     </PageContainer>

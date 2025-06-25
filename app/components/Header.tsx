@@ -3,19 +3,49 @@
 import styled from "styled-components";
 import { useState } from "react";
 import Menu from "./Menu";
+import dynamic from "next/dynamic";
+
+const ImageSlider = dynamic(() => import("./ImageSlider"), {
+  ssr: false,
+  loading: () => <LoadingContainer>Loading...</LoadingContainer>,
+});
+
+const LoadingContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: #666;
+`;
 
 const HeaderContainer = styled.header`
+  display: flex;
+  flex-direction: column;
+  background-color: #f3f5fd;
+  flex-shrink: 0;
+  height: 100%;
+`;
+
+const TitleSection = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 1rem 2rem 0;
-  background-color: #f3f5fd;
-  flex-shrink: 0;
   position: relative;
 
   @media (max-width: 768px) {
     padding: 1rem 4rem 0 2rem;
   }
+`;
+
+const SliderSection = styled.div`
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  min-height: 0;
 `;
 
 const Title = styled.h1`
@@ -112,20 +142,25 @@ export default function Header() {
   return (
     <>
       <HeaderContainer>
-        <Title>
-          Human Gaze Photography
-          <Subtitle>Horses</Subtitle>
-        </Title>
-        <HamburgerButton
-          className={isMenuOpen ? "open" : ""}
-          onClick={toggleMenu}
-          type="button"
-          aria-label="Toggle menu"
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </HamburgerButton>
+        <TitleSection>
+          <Title>
+            Human Gaze Photography
+            <Subtitle>Horses</Subtitle>
+          </Title>
+          <HamburgerButton
+            className={isMenuOpen ? "open" : ""}
+            onClick={toggleMenu}
+            type="button"
+            aria-label="Toggle menu"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </HamburgerButton>
+        </TitleSection>
+        <SliderSection>
+          <ImageSlider />
+        </SliderSection>
       </HeaderContainer>
       <MobileMenuWrapper>
         <Menu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
