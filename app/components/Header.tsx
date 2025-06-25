@@ -94,6 +94,14 @@ const HamburgerButton = styled.button`
   }
 `;
 
+const MobileMenuWrapper = styled.div`
+  display: none;
+
+  @media (max-width: 768px) {
+    display: block;
+  }
+`;
+
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -119,7 +127,9 @@ export default function Header() {
           <span></span>
         </HamburgerButton>
       </HeaderContainer>
-      <Menu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+      <MobileMenuWrapper>
+        <Menu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+      </MobileMenuWrapper>
     </>
   );
 }
