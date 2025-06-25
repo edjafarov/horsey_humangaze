@@ -5,7 +5,12 @@ import styled from "styled-components";
 import Image from "next/image";
 import PageContent from "../components/PageContent";
 import PinImage from "../components/PinImage";
-import { portfolioIdyllischMetadata, portfolioNiedlichMetadata, portfolioDramatischMetadata, portfolioHochzeitMetadata } from "../data/imageMetadata";
+import {
+  portfolioIdyllischMetadata,
+  portfolioNiedlichMetadata,
+  portfolioDramatischMetadata,
+  portfolioHochzeitMetadata,
+} from "../data/imageMetadata";
 
 const Title = styled.h1`
   font-size: 2.5rem;
@@ -101,7 +106,7 @@ const albums = [
     images: portfolioIdyllischMetadata.slice(1),
   },
   {
-    name: "niedlich", 
+    name: "niedlich",
     cover: portfolioNiedlichMetadata[0],
     images: portfolioNiedlichMetadata.slice(1),
   },
@@ -137,8 +142,9 @@ export default function Portfolio() {
               <AlbumImage
                 src={album.cover.src}
                 alt={album.cover.alt}
-                width={300}
-                height={400}
+                width={0}
+                height={0}
+                quality={90}
                 sizes="(max-width: 768px) 50vw, 25vw"
                 style={{
                   width: "100%",
