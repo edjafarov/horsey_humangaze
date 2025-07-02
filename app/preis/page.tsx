@@ -23,7 +23,7 @@ const Text = styled.p`
 export default function Preis() {
   return (
     <PageContent>
-      <Title>Preis</Title>
+      <Title id="top">Preis</Title>
       <Text>Coming soon...</Text>
     </PageContent>
   );

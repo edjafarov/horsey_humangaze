@@ -36,6 +36,7 @@ const RightSection = styled.div`
   flex-direction: column;
   overflow-y: auto;
   min-height: 0;
+  scroll-behavior: smooth;
 `;
 
 const HeaderSection = styled.div`

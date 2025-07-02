@@ -23,7 +23,7 @@ const Text = styled.p`
 export default function Kontakt() {
   return (
     <PageContent>
-      <Title>Kontakt</Title>
+      <Title id="top">Kontakt</Title>
       <Text>Coming soon...</Text>
     </PageContent>
   );

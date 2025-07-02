@@ -4,7 +4,8 @@
       "Bash(npm install:*)",
       "Bash(mkdir:*)",
       "Bash(unzip:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(npm run lint)"
     ],
     "deny": []
   }

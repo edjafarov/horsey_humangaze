@@ -29,7 +29,7 @@ const AlbumsContainer = styled.div`
   margin-bottom: 3rem;
   flex-wrap: wrap;
   width: 100%;
-  max-width: 1200px;
+
   margin-left: auto;
   margin-right: auto;
 
@@ -101,6 +101,11 @@ const Gallery = styled.div`
 
 const albums = [
   {
+    name: "dramatisch",
+    cover: portfolioDramatischMetadata[0],
+    images: portfolioDramatischMetadata.slice(1),
+  },
+  {
     name: "idyllisch",
     cover: portfolioIdyllischMetadata[0],
     images: portfolioIdyllischMetadata.slice(1),
@@ -110,11 +115,7 @@ const albums = [
     cover: portfolioNiedlichMetadata[0],
     images: portfolioNiedlichMetadata.slice(1),
   },
-  {
-    name: "dramatisch",
-    cover: portfolioDramatischMetadata[0],
-    images: portfolioDramatischMetadata.slice(1),
-  },
+
   {
     name: "hochzeit",
     cover: portfolioHochzeitMetadata[0],
@@ -127,7 +128,7 @@ export default function Portfolio() {
 
   return (
     <PageContent>
-      <Title>Portfolio</Title>
+      <Title id="top">Portfolio</Title>
 
       <AlbumsContainer>
         {albums.map((album) => (

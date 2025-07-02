@@ -23,7 +23,7 @@ const Text = styled.p`
 export default function Reitbetriebe() {
   return (
     <PageContent>
-      <Title>Reitbetriebe</Title>
+      <Title id="top">Reitbetriebe</Title>
       <Text>Coming soon...</Text>
     </PageContent>
   );

@@ -2,6 +2,7 @@
 
 import styled from "styled-components";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface MenuProps {
   isOpen?: boolean;
@@ -25,14 +26,15 @@ const MenuContainer = styled.nav<{ $isOpen?: boolean }>`
   @media (max-width: 768px) {
     position: fixed;
     top: 0;
-    right: ${props => props.$isOpen ? '0' : '-100%'};
+    right: ${(props) => (props.$isOpen ? "0" : "-100%")};
     height: 100vh;
     width: 250px;
     background-color: #f3f5fd;
     z-index: 1000;
     transition: right 0.3s ease;
     padding: 6rem 2rem 2rem;
-    box-shadow: ${props => props.$isOpen ? '-2px 0 10px rgba(0,0,0,0.1)' : 'none'};
+    box-shadow: ${(props) =>
+      props.$isOpen ? "-2px 0 10px rgba(0,0,0,0.1)" : "none"};
   }
 `;
 
@@ -45,8 +47,8 @@ const Overlay = styled.div<{ $isOpen: boolean }>`
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
-  opacity: ${props => props.$isOpen ? 1 : 0};
-  visibility: ${props => props.$isOpen ? 'visible' : 'hidden'};
+  opacity: ${(props) => (props.$isOpen ? 1 : 0)};
+  visibility: ${(props) => (props.$isOpen ? "visible" : "hidden")};
   transition: opacity 0.3s ease, visibility 0.3s ease;
 
   @media (max-width: 768px) {
@@ -59,11 +61,11 @@ const MenuItem = styled(Link)`
   color: #666;
   text-decoration: none;
   transition: color 0.2s ease;
-  
+
   &:hover {
     color: #333;
   }
-  
+
   @media (max-width: 1024px) {
     font-size: 1.3rem;
   }
@@ -78,11 +80,11 @@ const ExternalLink = styled.a`
   color: #666;
   text-decoration: none;
   transition: color 0.2s ease;
-  
+
   &:hover {
     color: #333;
   }
-  
+
   @media (max-width: 1024px) {
     font-size: 1.3rem;
   }
@@ -93,23 +95,82 @@ const ExternalLink = styled.a`
 `;
 
 export default function Menu({ isOpen = false, onClose }: MenuProps) {
+  const router = useRouter();
+
   const handleClose = () => {
     if (onClose) onClose();
+  };
+
+  const handleNavigation = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    e.preventDefault();
+    handleClose();
+
+    // Navigate first
+    router.push(href);
+
+    // Then scroll to the element after navigation completes
+    setTimeout(() => {
+      if (href.includes("#")) {
+        const id = href.split("#")[1];
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+    }, 100);
   };
 
   return (
     <>
       <Overlay $isOpen={isOpen} onClick={handleClose} />
-      
+
       <MenuContainer $isOpen={isOpen}>
-        <MenuItem href="/" onClick={handleClose}>Home</MenuItem>
-        <MenuItem href="/portfolio" onClick={handleClose}>Portfolio</MenuItem>
-        <MenuItem href="/preis" onClick={handleClose}>Preis</MenuItem>
-        <MenuItem href="/reitbetriebe" onClick={handleClose}>Reitbetriebe</MenuItem>
-        <MenuItem href="/kontakt" onClick={handleClose}>Kontakt</MenuItem>
-        <ExternalLink 
-          href="https://instagram.com" 
-          target="_blank" 
+        <MenuItem
+          href="/"
+          onClick={(e: React.MouseEvent<HTMLAnchorElement>) =>
+            handleNavigation(e, "/")
+          }
+        >
+          Home
+        </MenuItem>
+        <MenuItem
+          href="/portfolio#top"
+          onClick={(e: React.MouseEvent<HTMLAnchorElement>) =>
+            handleNavigation(e, "/portfolio#top")
+          }
+        >
+          Portfolio
+        </MenuItem>
+        <MenuItem
+          href="/preis#top"
+          onClick={(e: React.MouseEvent<HTMLAnchorElement>) =>
+            handleNavigation(e, "/preis#top")
+          }
+        >
+          Preis
+        </MenuItem>
+        <MenuItem
+          href="/reitbetriebe#top"
+          onClick={(e: React.MouseEvent<HTMLAnchorElement>) =>
+            handleNavigation(e, "/reitbetriebe#top")
+          }
+        >
+          Reitbetriebe
+        </MenuItem>
+        <MenuItem
+          href="/kontakt#top"
+          onClick={(e: React.MouseEvent<HTMLAnchorElement>) =>
+            handleNavigation(e, "/kontakt#top")
+          }
+        >
+          Kontakt
+        </MenuItem>
+        <ExternalLink
+          href="https://instagram.com"
+          target="_blank"
           rel="noopener noreferrer"
           onClick={handleClose}
         >
