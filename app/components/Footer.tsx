@@ -1,6 +1,7 @@
 "use client";
 
 import styled from "styled-components";
+import { useTranslations } from 'next-intl';
 
 const FooterContainer = styled.footer`
   display: flex;
@@ -48,15 +49,17 @@ const Separator = styled.span`
 `;
 
 export default function Footer() {
+  const t = useTranslations('navigation');
+  
   return (
     <FooterContainer>
       <LegalLinks>
         <LegalLink href="/impressum">
-          Impressum
+          {t('imprint')}
         </LegalLink>
         <Separator>|</Separator>
         <LegalLink href="/datenschutzerklaerung">
-          Datenschutzerklärung
+          {t('privacy')}
         </LegalLink>
       </LegalLinks>
     </FooterContainer>

@@ -3,14 +3,15 @@
 import { useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import PageContent from "../components/PageContent";
-import PinImage from "../components/PinImage";
+import PageContent from "@/app/components/PageContent";
+import PinImage from "@/app/components/PinImage";
 import {
   portfolioIdyllischMetadata,
   portfolioNiedlichMetadata,
   portfolioDramatischMetadata,
   portfolioHochzeitMetadata,
-} from "../data/imageMetadata";
+} from "@/app/data/imageMetadata";
+import { useTranslations } from 'next-intl';
 
 const Title = styled.h1`
   font-size: 2.5rem;
@@ -125,10 +126,11 @@ const albums = [
 
 export default function Portfolio() {
   const [selectedAlbum, setSelectedAlbum] = useState<string | null>(null);
+  const t = useTranslations('portfolio');
 
   return (
     <PageContent>
-      <Title id="top">Portfolio</Title>
+      <Title id="top">{t('title')}</Title>
 
       <AlbumsContainer>
         {albums.map((album) => (
@@ -153,7 +155,7 @@ export default function Portfolio() {
                 }}
                 title={album.cover.title}
               />
-              <AlbumTitle>{album.name}</AlbumTitle>
+              <AlbumTitle>{t(`albums.${album.name}`)}</AlbumTitle>
             </AlbumImageWrapper>
           </AlbumCover>
         ))}

@@ -1,0 +1,60 @@
+{
+  "metadata": {
+    "title": "Human Gaze Photography - Professionelle Pferdefotografie",
+    "description": "Kunstvolle Pferdefotografie in Deutschland. Spezialisiert auf einzigartige Pferdeportraits, die die Seele und Schönheit dieser majestätischen Tiere einfangen.",
+    "keywords": "Pferdefotografie, Pferde Portrait, Reitsport Fotografie, Pferde Shooting, Tierfotografie, Reitbetriebe Fotografie"
+  },
+  "navigation": {
+    "home": "Home",
+    "portfolio": "Portfolio",
+    "price": "Preis",
+    "ridingStables": "Reitbetriebe",
+    "contact": "Kontakt",
+    "imprint": "Impressum",
+    "privacy": "Datenschutzerklärung"
+  },
+  "header": {
+    "title": "Human Gaze Photography",
+    "subtitle": "Horses",
+    "toggleMenu": "Menü umschalten",
+    "loading": "Laden..."
+  },
+  "imageSlider": {
+    "loading": "Laden...",
+    "noImages": "Keine Bilder gefunden...",
+    "previousImage": "Vorheriges Bild",
+    "nextImage": "Nächstes Bild",
+    "imageGallery": "Bildergalerie"
+  },
+  "portfolio": {
+    "title": "Portfolio",
+    "albums": {
+      "dramatisch": "dramatisch",
+      "idyllisch": "idyllisch",
+      "niedlich": "niedlich",
+      "hochzeit": "hochzeit"
+    }
+  },
+  "pages": {
+    "price": {
+      "title": "Preis",
+      "content": "Demnächst..."
+    },
+    "ridingStables": {
+      "title": "Reitbetriebe",
+      "content": "Demnächst..."
+    },
+    "contact": {
+      "title": "Kontakt",
+      "content": "Demnächst..."
+    },
+    "imprint": {
+      "title": "Impressum",
+      "content": "Demnächst..."
+    },
+    "privacy": {
+      "title": "Datenschutzerklärung",
+      "content": "Demnächst..."
+    }
+  }
+}

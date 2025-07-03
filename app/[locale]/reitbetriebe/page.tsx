@@ -1,8 +1,8 @@
 'use client';
 
 import styled from 'styled-components';
-import PageContent from '../components/PageContent';
-
+import PageContent from '@/app/components/PageContent';
+import { useTranslations } from 'next-intl';
 
 const Title = styled.h1`
   font-size: 2.5rem;
@@ -20,11 +20,13 @@ const Text = styled.p`
   color: #666;
 `;
 
-export default function Impressum() {
+export default function Reitbetriebe() {
+  const t = useTranslations('pages.ridingStables');
+  
   return (
     <PageContent>
-      <Title>Impressum</Title>
-      <Text>Coming soon...</Text>
+      <Title id="top">{t('title')}</Title>
+      <Text>{t('content')}</Text>
     </PageContent>
   );
 }

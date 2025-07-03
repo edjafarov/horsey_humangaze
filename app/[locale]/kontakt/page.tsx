@@ -1,8 +1,8 @@
 'use client';
 
 import styled from 'styled-components';
-import PageContent from '../components/PageContent';
-
+import PageContent from '@/app/components/PageContent';
+import { useTranslations } from 'next-intl';
 
 const Title = styled.h1`
   font-size: 2.5rem;
@@ -21,10 +21,12 @@ const Text = styled.p`
 `;
 
 export default function Kontakt() {
+  const t = useTranslations('pages.contact');
+  
   return (
     <PageContent>
-      <Title id="top">Kontakt</Title>
-      <Text>Coming soon...</Text>
+      <Title id="top">{t('title')}</Title>
+      <Text>{t('content')}</Text>
     </PageContent>
   );
 }

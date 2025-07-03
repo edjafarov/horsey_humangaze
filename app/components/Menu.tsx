@@ -2,7 +2,8 @@
 
 import styled from "styled-components";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
+import { useTranslations, useLocale } from 'next-intl';
 
 interface MenuProps {
   isOpen?: boolean;
@@ -94,12 +95,48 @@ const ExternalLink = styled.a`
   }
 `;
 
+const LanguageSwitcher = styled.div`
+  display: flex;
+  gap: 1rem;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  
+  @media (max-width: 1024px) {
+    font-size: 1rem;
+  }
+`;
+
+const LanguageLink = styled(Link)<{ $active: boolean }>`
+  color: ${props => props.$active ? '#333' : '#999'};
+  text-decoration: none;
+  font-weight: ${props => props.$active ? '600' : '400'};
+  transition: color 0.2s ease;
+  
+  &:hover {
+    color: #333;
+  }
+`;
+
 export default function Menu({ isOpen = false, onClose }: MenuProps) {
   const router = useRouter();
+  const pathname = usePathname();
+  const locale = useLocale();
+  const t = useTranslations('navigation');
 
   const handleClose = () => {
     if (onClose) onClose();
   };
+
+  // Get the current path without the locale prefix
+  const getPathWithoutLocale = () => {
+    const segments = pathname.split('/');
+    if (segments[1] === 'en' || segments[1] === 'de') {
+      return '/' + segments.slice(2).join('/');
+    }
+    return pathname;
+  };
+
+  const currentPath = getPathWithoutLocale();
 
   const handleNavigation = (
     e: React.MouseEvent<HTMLAnchorElement>,
@@ -134,7 +171,7 @@ export default function Menu({ isOpen = false, onClose }: MenuProps) {
             handleNavigation(e, "/")
           }
         >
-          Home
+          {t('home')}
         </MenuItem>
         <MenuItem
           href="/portfolio#top"
@@ -142,7 +179,7 @@ export default function Menu({ isOpen = false, onClose }: MenuProps) {
             handleNavigation(e, "/portfolio#top")
           }
         >
-          Portfolio
+          {t('portfolio')}
         </MenuItem>
         <MenuItem
           href="/preis#top"
@@ -150,7 +187,7 @@ export default function Menu({ isOpen = false, onClose }: MenuProps) {
             handleNavigation(e, "/preis#top")
           }
         >
-          Preis
+          {t('price')}
         </MenuItem>
         <MenuItem
           href="/reitbetriebe#top"
@@ -158,7 +195,7 @@ export default function Menu({ isOpen = false, onClose }: MenuProps) {
             handleNavigation(e, "/reitbetriebe#top")
           }
         >
-          Reitbetriebe
+          {t('ridingStables')}
         </MenuItem>
         <MenuItem
           href="/kontakt#top"
@@ -166,7 +203,7 @@ export default function Menu({ isOpen = false, onClose }: MenuProps) {
             handleNavigation(e, "/kontakt#top")
           }
         >
-          Kontakt
+          {t('contact')}
         </MenuItem>
         <ExternalLink
           href="https://instagram.com"
@@ -176,6 +213,23 @@ export default function Menu({ isOpen = false, onClose }: MenuProps) {
         >
           Instagram
         </ExternalLink>
+        <LanguageSwitcher>
+          <LanguageLink 
+            href={currentPath} 
+            $active={locale === 'de'}
+            onClick={handleClose}
+          >
+            DE
+          </LanguageLink>
+          <span style={{ color: '#ccc' }}>|</span>
+          <LanguageLink 
+            href={`/en${currentPath}`} 
+            $active={locale === 'en'}
+            onClick={handleClose}
+          >
+            EN
+          </LanguageLink>
+        </LanguageSwitcher>
       </MenuContainer>
     </>
   );

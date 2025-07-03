@@ -1,8 +1,8 @@
 'use client';
 
 import styled from 'styled-components';
-import PageContent from '../components/PageContent';
-
+import PageContent from '@/app/components/PageContent';
+import { useTranslations } from 'next-intl';
 
 const Title = styled.h1`
   font-size: 2.5rem;
@@ -20,11 +20,13 @@ const Text = styled.p`
   color: #666;
 `;
 
-export default function Preis() {
+export default function Impressum() {
+  const t = useTranslations('pages.imprint');
+  
   return (
     <PageContent>
-      <Title id="top">Preis</Title>
-      <Text>Coming soon...</Text>
+      <Title>{t('title')}</Title>
+      <Text>{t('content')}</Text>
     </PageContent>
   );
 }

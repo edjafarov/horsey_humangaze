@@ -4,10 +4,17 @@ import styled from "styled-components";
 import { useState } from "react";
 import Menu from "./Menu";
 import dynamic from "next/dynamic";
+import { useTranslations } from 'next-intl';
 
 const ImageSlider = dynamic(() => import("./ImageSlider"), {
   ssr: false,
-  loading: () => <LoadingContainer>Loading...</LoadingContainer>,
+  loading: () => {
+    const LoadingComponent = () => {
+      const t = useTranslations('header');
+      return <LoadingContainer>{t('loading')}</LoadingContainer>;
+    };
+    return <LoadingComponent />;
+  },
 });
 
 const LoadingContainer = styled.div`
@@ -134,6 +141,7 @@ const MobileMenuWrapper = styled.div`
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const t = useTranslations('header');
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -144,14 +152,14 @@ export default function Header() {
       <HeaderContainer>
         <TitleSection>
           <Title>
-            Human Gaze Photography
-            <Subtitle>Horses</Subtitle>
+            {t('title')}
+            <Subtitle>{t('subtitle')}</Subtitle>
           </Title>
           <HamburgerButton
             className={isMenuOpen ? "open" : ""}
             onClick={toggleMenu}
             type="button"
-            aria-label="Toggle menu"
+            aria-label={t('toggleMenu')}
           >
             <span></span>
             <span></span>

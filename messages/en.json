@@ -1,0 +1,60 @@
+{
+  "metadata": {
+    "title": "Human Gaze Photography - Professional Horse Photography",
+    "description": "Artistic horse photography in Germany. Specializing in unique horse portraits that capture the soul and beauty of these majestic animals.",
+    "keywords": "horse photography, horse portraits, equestrian photography, horse photoshoot, animal photography, riding stable photography"
+  },
+  "navigation": {
+    "home": "Home",
+    "portfolio": "Portfolio",
+    "price": "Pricing",
+    "ridingStables": "Riding Stables",
+    "contact": "Contact",
+    "imprint": "Imprint",
+    "privacy": "Privacy Policy"
+  },
+  "header": {
+    "title": "Human Gaze Photography",
+    "subtitle": "Horses",
+    "toggleMenu": "Toggle menu",
+    "loading": "Loading..."
+  },
+  "imageSlider": {
+    "loading": "Loading...",
+    "noImages": "No images found...",
+    "previousImage": "Previous image",
+    "nextImage": "Next image",
+    "imageGallery": "Image gallery"
+  },
+  "portfolio": {
+    "title": "Portfolio",
+    "albums": {
+      "dramatisch": "dramatic",
+      "idyllisch": "idyllic",
+      "niedlich": "cute",
+      "hochzeit": "wedding"
+    }
+  },
+  "pages": {
+    "price": {
+      "title": "Pricing",
+      "content": "Coming soon..."
+    },
+    "ridingStables": {
+      "title": "Riding Stables",
+      "content": "Coming soon..."
+    },
+    "contact": {
+      "title": "Contact",
+      "content": "Coming soon..."
+    },
+    "imprint": {
+      "title": "Imprint",
+      "content": "Coming soon..."
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "content": "Coming soon..."
+    }
+  }
+}
