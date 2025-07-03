@@ -130,9 +130,15 @@ export default function Menu({ isOpen = false, onClose }: MenuProps) {
   // Get the current path without the locale prefix
   const getPathWithoutLocale = () => {
     const segments = pathname.split('/');
-    if (segments[1] === 'en' || segments[1] === 'de') {
+    // Remove locale if present
+    if (segments[1] === 'en') {
       return '/' + segments.slice(2).join('/');
     }
+    // For German (default), pathname might not have locale prefix
+    if (segments[1] === 'de') {
+      return '/' + segments.slice(2).join('/');
+    }
+    // If no locale prefix, return as is
     return pathname;
   };
 
@@ -145,13 +151,16 @@ export default function Menu({ isOpen = false, onClose }: MenuProps) {
     e.preventDefault();
     handleClose();
 
+    // Use the href from the clicked element which already has the correct locale
+    const actualHref = e.currentTarget.getAttribute('href') || href;
+
     // Navigate first
-    router.push(href);
+    router.push(actualHref);
 
     // Then scroll to the element after navigation completes
     setTimeout(() => {
-      if (href.includes("#")) {
-        const id = href.split("#")[1];
+      if (actualHref.includes("#")) {
+        const id = actualHref.split("#")[1];
         const element = document.getElementById(id);
         if (element) {
           element.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -166,7 +175,7 @@ export default function Menu({ isOpen = false, onClose }: MenuProps) {
 
       <MenuContainer $isOpen={isOpen}>
         <MenuItem
-          href="/"
+          href={locale === 'de' ? "/" : "/en/"}
           onClick={(e: React.MouseEvent<HTMLAnchorElement>) =>
             handleNavigation(e, "/")
           }
@@ -174,7 +183,7 @@ export default function Menu({ isOpen = false, onClose }: MenuProps) {
           {t('home')}
         </MenuItem>
         <MenuItem
-          href="/portfolio#top"
+          href={locale === 'de' ? "/portfolio#top" : "/en/portfolio#top"}
           onClick={(e: React.MouseEvent<HTMLAnchorElement>) =>
             handleNavigation(e, "/portfolio#top")
           }
@@ -182,7 +191,7 @@ export default function Menu({ isOpen = false, onClose }: MenuProps) {
           {t('portfolio')}
         </MenuItem>
         <MenuItem
-          href="/preis#top"
+          href={locale === 'de' ? "/preis#top" : "/en/preis#top"}
           onClick={(e: React.MouseEvent<HTMLAnchorElement>) =>
             handleNavigation(e, "/preis#top")
           }
@@ -190,7 +199,7 @@ export default function Menu({ isOpen = false, onClose }: MenuProps) {
           {t('price')}
         </MenuItem>
         <MenuItem
-          href="/reitbetriebe#top"
+          href={locale === 'de' ? "/reitbetriebe#top" : "/en/reitbetriebe#top"}
           onClick={(e: React.MouseEvent<HTMLAnchorElement>) =>
             handleNavigation(e, "/reitbetriebe#top")
           }
@@ -198,7 +207,7 @@ export default function Menu({ isOpen = false, onClose }: MenuProps) {
           {t('ridingStables')}
         </MenuItem>
         <MenuItem
-          href="/kontakt#top"
+          href={locale === 'de' ? "/kontakt#top" : "/en/kontakt#top"}
           onClick={(e: React.MouseEvent<HTMLAnchorElement>) =>
             handleNavigation(e, "/kontakt#top")
           }
