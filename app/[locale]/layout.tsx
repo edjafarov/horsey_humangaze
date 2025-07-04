@@ -10,6 +10,7 @@ import { getMessages, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { locales } from "../i18n";
 import { generateSeoImageUrl } from "../utils/seoUrlGenerator";
+import { Analytics } from "@vercel/analytics/next";
 
 type Props = {
   children: React.ReactNode;
@@ -177,6 +178,7 @@ export default async function LocaleLayout({ children, params }: Props) {
       />
       <NextIntlClientProvider messages={messages}>
         <LayoutWrapper>{children}</LayoutWrapper>
+        <Analytics />
       </NextIntlClientProvider>
     </>
   );
