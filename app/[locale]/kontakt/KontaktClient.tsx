@@ -3,7 +3,8 @@
 import styled from "styled-components";
 import PageContent from "@/app/components/PageContent";
 import { useTranslations } from "next-intl";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { sendContactMessage } from "@/lib/sendMessageAction";
 import { useFormValidation, validators } from "@/lib/useFormValidation";
 
@@ -252,6 +253,27 @@ const FormTitle = styled.h3`
   font-weight: 600;
 `;
 
+const PlanIndicator = styled.div`
+  background-color: #e8f5e8;
+  border-left: 4px solid #51cf66;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+  
+  h4 {
+    margin: 0 0 0.5rem 0;
+    color: #2b8a3e;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  
+  p {
+    margin: 0;
+    color: #495057;
+    font-size: 0.9rem;
+  }
+`;
+
 const CharacterCount = styled.span<{ $isNearLimit?: boolean }>`
   font-size: 0.75rem;
   color: ${(props) => (props.$isNearLimit ? "#ff6b6b" : "#666")};
@@ -263,6 +285,19 @@ export default function KontaktClient() {
   const t = useTranslations("pages.contact");
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const searchParams = useSearchParams();
+  
+  // Get initial values from URL parameters
+  const getInitialValues = useCallback(() => {
+    const planMessage = searchParams.get('message');
+    
+    return {
+      name: '',
+      email: '',
+      phone: '',
+      message: planMessage ? decodeURIComponent(planMessage) : ''
+    };
+  }, [searchParams]);
 
   // Custom validation rules
   const validationRules = {
@@ -318,10 +353,17 @@ export default function KontaktClient() {
     getFieldProps,
     getFieldError,
     setErrors,
+    setValues,
   } = useFormValidation(
-    { name: "", email: "", phone: "", message: "" },
+    getInitialValues(),
     validationRules
   );
+
+  // Update form when URL parameters change
+  useEffect(() => {
+    const initialValues = getInitialValues();
+    setValues(initialValues);
+  }, [getInitialValues, setValues]);
 
   // Custom validation for at least one contact method
   const validateContactMethod = useCallback(() => {
@@ -408,6 +450,13 @@ export default function KontaktClient() {
 
         <RightColumn>
           <FormTitle>{t("formTitle")}</FormTitle>
+
+          {searchParams.get('plan') && (
+            <PlanIndicator>
+              <h4>📋 Ausgewähltes Paket: {searchParams.get('plan')}</h4>
+              <p>Ihre Nachricht wurde bereits mit den Paket-Details ausgefüllt. Sie können diese gerne anpassen.</p>
+            </PlanIndicator>
+          )}
 
           {submitSuccess && (
             <SuccessMessage>{t("successMessage")}</SuccessMessage>
