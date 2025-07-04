@@ -670,6 +670,10 @@ export const allPortfolioMetadataBilingual: BilingualImageMetadata[] = [
 
 // Generate JSON-LD structured data for SEO
 export function getJsonLdData(locale: "de" | "en" = "de") {
+  // Import dynamically to avoid circular dependency
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const { generateSeoImageUrl } = require('@/app/utils/seoUrlGenerator');
+  
   const allImages = [...allSliderImagesBilingual, ...allPortfolioMetadataBilingual];
   const localizedImages = getLocalizedMetadata(allImages, locale);
 
@@ -696,16 +700,19 @@ export function getJsonLdData(locale: "de" | "en" = "de") {
     description: localizedData[locale].description,
     url: localizedUrl,
     inLanguage: locale,
-    image: localizedImages.map((img, index) => ({
-      "@type": "ImageObject",
-      name: img.title,
-      caption: img.description,
-      contentUrl: `${baseUrl}${img.src}`,
-      thumbnailUrl: `${baseUrl}${img.src}`,
-      description: img.description,
-      position: index + 1,
-      inLanguage: locale,
-    })),
+    image: localizedImages.map((img, index) => {
+      const seoUrl = generateSeoImageUrl(img.src, img.title, locale);
+      return {
+        "@type": "ImageObject",
+        name: img.title,
+        caption: img.description,
+        contentUrl: `${baseUrl}${seoUrl}`,
+        thumbnailUrl: `${baseUrl}${seoUrl}`,
+        description: img.description,
+        position: index + 1,
+        inLanguage: locale,
+      };
+    }),
     numberOfItems: localizedImages.length,
     author: {
       "@type": "Person",

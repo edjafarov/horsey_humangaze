@@ -4,6 +4,7 @@ import { styled } from "styled-components";
 import Image, { ImageProps } from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useSeoImageUrl } from "@/app/hooks/useSeoImageUrl";
 
 const PinButton = styled.div`
   position: absolute;
@@ -52,21 +53,26 @@ const PinImage = ({ description, ...imageProps }: PinImageProps) => {
   const hostname = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000';
   const url = `${hostname}${pathname}`;
 
-  const imageSrc =
+  const originalImageSrc =
     typeof imageProps.src === "string"
       ? imageProps.src
       : "src" in imageProps.src
       ? imageProps.src.src
       : "";
-  const fullImageSrc = imageSrc.startsWith("http")
-    ? imageSrc
-    : `${hostname}${imageSrc}`;
+  
+  // Get SEO-friendly URL for the image
+  const seoImageSrc = useSeoImageUrl(originalImageSrc);
+  
+  // Use SEO URL for Pinterest sharing
+  const fullImageSrc = seoImageSrc.startsWith("http")
+    ? seoImageSrc
+    : `${hostname}${seoImageSrc}`;
   
   const pinDescription = description || imageProps.alt || "";
 
   return (
     <Container style={{ width: imageProps.style?.width }}>
-      <StyledImage {...imageProps} />
+      <StyledImage {...imageProps} src={seoImageSrc} />
       <PinButton>
         <Link
           href={`http://pinterest.com/pin/create/button/?url=${url}&media=${fullImageSrc}&description=${encodeURIComponent(pinDescription)}`}

@@ -25,7 +25,7 @@ export default function PreisClient() {
   
   return (
     <PageContent>
-      <Title id="top">{t('title')}</Title>
+      <Title >{t('title')}</Title>
       <Text>{t('content')}</Text>
     </PageContent>
   );

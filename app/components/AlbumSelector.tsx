@@ -12,6 +12,7 @@ import {
   portfolioHochzeitBilingual,
   getLocalizedMetadata,
 } from "@/app/data/bilingualImageMetadata";
+import { useSeoImageUrl } from "@/app/hooks/useSeoImageUrl";
 
 const AlbumsContainer = styled.div`
   display: flex;
@@ -77,6 +78,26 @@ const AlbumTitle = styled.div`
   text-transform: capitalize;
 `;
 
+// Separate component to use the hook properly
+function AlbumSelectorImage({ cover }: { cover: { src: string; alt: string; title: string } }) {
+  const seoUrl = useSeoImageUrl(cover.src);
+  return (
+    <AlbumImage
+      src={seoUrl}
+      alt={cover.alt}
+      width={0}
+      height={0}
+      quality={90}
+      sizes="(max-width: 768px) 50vw, 25vw"
+      style={{
+        width: "100%",
+        height: "auto",
+      }}
+      title={cover.title}
+    />
+  );
+}
+
 export default function AlbumSelector() {
   const params = useParams();
   const pathname = usePathname();
@@ -113,19 +134,7 @@ export default function AlbumSelector() {
           $isActive={currentAlbum === album.name}
         >
           <AlbumImageWrapper>
-            <AlbumImage
-              src={album.cover.src}
-              alt={album.cover.alt}
-              width={0}
-              height={0}
-              quality={90}
-              sizes="(max-width: 768px) 50vw, 25vw"
-              style={{
-                width: "100%",
-                height: "auto",
-              }}
-              title={album.cover.title}
-            />
+            <AlbumSelectorImage cover={album.cover} />
             <AlbumTitle>{t(`albums.${album.name}`)}</AlbumTitle>
           </AlbumImageWrapper>
         </AlbumCover>

@@ -13,6 +13,7 @@ import {
 } from "@/app/data/bilingualImageMetadata";
 import { useTranslations } from 'next-intl';
 import { useParams } from "next/navigation";
+import { useSeoImageUrl } from "@/app/hooks/useSeoImageUrl";
 
 
 const Title = styled.h1`
@@ -90,6 +91,26 @@ const AlbumTitle = styled.div`
   text-transform: capitalize;
 `;
 
+// Separate component to use the hook properly
+function AlbumCoverImage({ cover }: { cover: { src: string; alt: string; title: string } }) {
+  const seoUrl = useSeoImageUrl(cover.src);
+  return (
+    <AlbumImage
+      src={seoUrl}
+      alt={cover.alt}
+      width={0}
+      height={0}
+      quality={90}
+      sizes="(max-width: 768px) 50vw, 25vw"
+      style={{
+        width: "100%",
+        height: "auto",
+      }}
+      title={cover.title}
+    />
+  );
+}
+
 export default function PortfolioClient() {
   const params = useParams();
   const locale = params.locale as 'de' | 'en';
@@ -116,7 +137,7 @@ export default function PortfolioClient() {
 
   return (
     <PageContent>
-      <Title id="top">{t('title')}</Title>
+      <Title >{t('title')}</Title>
 
       <AlbumsContainer>
         {albums.map((album) => (
@@ -125,19 +146,7 @@ export default function PortfolioClient() {
             href={`/${locale === "de" ? "" : `${locale}/`}portfolio/${album.name}`}
           >
             <AlbumImageWrapper>
-              <AlbumImage
-                src={album.cover.src}
-                alt={album.cover.alt}
-                width={0}
-                height={0}
-                quality={90}
-                sizes="(max-width: 768px) 50vw, 25vw"
-                style={{
-                  width: "100%",
-                  height: "auto",
-                }}
-                title={album.cover.title}
-              />
+              <AlbumCoverImage cover={album.cover} />
               <AlbumTitle>{t(`albums.${album.name}`)}</AlbumTitle>
             </AlbumImageWrapper>
           </AlbumCover>

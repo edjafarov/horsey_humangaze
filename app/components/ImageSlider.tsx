@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import { allSliderImagesBilingual, getLocalizedMetadata } from "../data/bilingualImageMetadata";
 import { useParams } from "next/navigation";
+import { useSeoImageUrl } from "../hooks/useSeoImageUrl";
 
 const TRANSITION_DURATION = 300;
 const DRAG_THRESHOLD = 0.15;
@@ -145,6 +146,25 @@ interface DragState {
   startX: number;
   startTranslateX: number;
   currentX: number;
+}
+
+// Separate component to use the hook properly
+function SliderImage({ image, priority, loading }: { 
+  image: { src: string; alt: string; title: string; }, 
+  priority: boolean, 
+  loading: "eager" | "lazy" 
+}) {
+  const seoUrl = useSeoImageUrl(image.src);
+  return (
+    <StyledImage
+      src={seoUrl}
+      alt={image.alt}
+      title={image.title}
+      fill
+      priority={priority}
+      loading={loading}
+    />
+  );
 }
 
 export default function ImageSlider() {
@@ -355,20 +375,15 @@ export default function ImageSlider() {
         role="group"
         aria-label={`Image ${currentIndex + 1} of ${imageList.length}`}
       >
-        {extendedImageList.map((image, index) => {
-          return (
-            <ImageWrapper key={`${image.src}-${index}`} role="img">
-              <StyledImage
-                src={image.src}
-                alt={image.alt}
-                title={image.title}
-                fill
-                priority={index === currentIndex + 1}
-                loading={index === currentIndex + 1 ? "eager" : "lazy"}
-              />
-            </ImageWrapper>
-          );
-        })}
+        {extendedImageList.map((image, index) => (
+          <ImageWrapper key={`${image.src}-${index}`} role="img">
+            <SliderImage
+              image={image}
+              priority={index === currentIndex + 1}
+              loading={index === currentIndex + 1 ? "eager" : "lazy"}
+            />
+          </ImageWrapper>
+        ))}
       </ImageStrip>
 
       <PrevButton

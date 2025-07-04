@@ -5,9 +5,9 @@ import {
   portfolioNiedlichBilingual,
   portfolioHochzeitBilingual,
   allSliderImagesBilingual,
-  getLocalizedMetadata,
   BilingualImageMetadata
 } from '../data/bilingualImageMetadata';
+import { generateSeoImageUrl } from '../utils/seoUrlGenerator';
 
 export async function GET() {
   const baseUrl = 'https://equine.humangaze-photography.com';
@@ -28,22 +28,26 @@ export async function GET() {
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ${allImageCategories.map(({ category, images }) => 
   locales.map(locale => {
-    const localizedImages = getLocalizedMetadata(images, locale);
     const localePrefix = locale === 'de' ? '' : '/en';
     const pageUrl = category ? `${baseUrl}${localePrefix}/${category}` : `${baseUrl}${localePrefix}`;
     
-    return localizedImages.map(img => `
+    return images.map(img => {
+      const localizedMeta = img[locale];
+      const seoUrl = generateSeoImageUrl(img.src, localizedMeta.title, locale);
+      const fullSeoUrl = `${baseUrl}${seoUrl}`;
+      
+      return `
   <url>
     <loc>${pageUrl}</loc>
     <image:image>
-      <image:loc>${baseUrl}${img.src}</image:loc>
-      <image:title>${escapeXml(img.title)}</image:title>
-      <image:caption>${escapeXml(img.description)}</image:caption>
+      <image:loc>${fullSeoUrl}</image:loc>
+      <image:title>${escapeXml(localizedMeta.title)}</image:title>
+      <image:caption>${escapeXml(localizedMeta.description)}</image:caption>
       <image:geo_location>Germany</image:geo_location>
       <image:license>${baseUrl}/impressum</image:license>
     </image:image>
-  </url>`
-    ).join('');
+  </url>`;
+    }).join('');
   }).join('')
 ).join('')}
 </urlset>`;

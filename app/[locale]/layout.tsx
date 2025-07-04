@@ -3,11 +3,12 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import StyledComponentsRegistry from "../components/StyledComponentsRegistry";
 import LayoutWrapper from "../components/LayoutWrapper";
-import { getJsonLdData } from "../data/bilingualImageMetadata";
+import { getJsonLdData, bilingualImageMetadata } from "../data/bilingualImageMetadata";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { locales } from '../i18n';
+import { generateSeoImageUrl } from '../utils/seoUrlGenerator';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,6 +38,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     en: 'https://equine.humangaze-photography.com/en'
   };
 
+  // Get the first image for Open Graph and Twitter cards
+  const firstImage = bilingualImageMetadata[0];
+  const firstImageMeta = firstImage[locale as 'de' | 'en'];
+  const seoImageUrl = generateSeoImageUrl(firstImage.src, firstImageMeta.title, locale as 'de' | 'en');
+  const fullSeoImageUrl = `https://equine.humangaze-photography.com${seoImageUrl}`;
+
   return {
     title: t('title'),
     description: t('description'),
@@ -50,10 +57,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       siteName: 'Human Gaze Photography',
       images: [
         {
-          url: 'https://equine.humangaze-photography.com/images/slider2x3/1dovge.jpg',
+          url: fullSeoImageUrl,
           width: 1200,
           height: 630,
-          alt: locale === 'de' ? 'Professionelle Pferdefotografie' : 'Professional Horse Photography',
+          alt: firstImageMeta.alt,
         }
       ],
     },
@@ -61,7 +68,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: 'summary_large_image',
       title: t('title'),
       description: t('description'),
-      images: ['https://equine.humangaze-photography.com/images/slider2x3/1dovge.jpg'],
+      images: [fullSeoImageUrl],
     },
     alternates: {
       languages: alternateLanguages,
@@ -148,30 +155,24 @@ export default async function LocaleLayout({
   };
   
   return (
-    <html lang={locale}>
-      <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
-        />
-      </head>
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <StyledComponentsRegistry>
-          <NextIntlClientProvider messages={messages}>
-            <LayoutWrapper>
-              {children}
-            </LayoutWrapper>
-          </NextIntlClientProvider>
-        </StyledComponentsRegistry>
-      </body>
-    </html>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+      />
+      <NextIntlClientProvider messages={messages}>
+        <LayoutWrapper>
+          {children}
+        </LayoutWrapper>
+      </NextIntlClientProvider>
+    </>
   );
 }

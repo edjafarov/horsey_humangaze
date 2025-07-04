@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import styled from 'styled-components';
-import PageContent from '@/app/components/PageContent';
-import { useTranslations } from 'next-intl';
+import styled from "styled-components";
+import PageContent from "@/app/components/PageContent";
+import { useTranslations } from "next-intl";
 
 const Title = styled.h1`
   font-size: 2.5rem;
   color: #333;
   margin-bottom: 2rem;
-  
+
   @media (max-width: 768px) {
     font-size: 2rem;
   }
@@ -21,12 +21,12 @@ const Text = styled.p`
 `;
 
 export default function ReitbetriebeClient() {
-  const t = useTranslations('pages.ridingStables');
-  
+  const t = useTranslations("pages.ridingStables");
+
   return (
     <PageContent>
-      <Title id="top">{t('title')}</Title>
-      <Text>{t('content')}</Text>
+      <Title>{t("title")}</Title>
+      <Text>{t("content")}</Text>
     </PageContent>
   );
 }
