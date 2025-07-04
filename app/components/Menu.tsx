@@ -3,7 +3,7 @@
 import styled from "styled-components";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
-import { useTranslations, useLocale } from 'next-intl';
+import { useTranslations, useLocale } from "next-intl";
 
 interface MenuProps {
   isOpen?: boolean;
@@ -100,18 +100,18 @@ const LanguageSwitcher = styled.div`
   gap: 1rem;
   font-size: 1.2rem;
   margin-top: 1rem;
-  
+
   @media (max-width: 1024px) {
     font-size: 1rem;
   }
 `;
 
 const LanguageLink = styled(Link)<{ $active: boolean }>`
-  color: ${props => props.$active ? '#333' : '#999'};
+  color: ${(props) => (props.$active ? "#333" : "#999")};
   text-decoration: none;
-  font-weight: ${props => props.$active ? '600' : '400'};
+  font-weight: ${(props) => (props.$active ? "600" : "400")};
   transition: color 0.2s ease;
-  
+
   &:hover {
     color: #333;
   }
@@ -121,7 +121,7 @@ export default function Menu({ isOpen = false, onClose }: MenuProps) {
   const router = useRouter();
   const pathname = usePathname();
   const locale = useLocale();
-  const t = useTranslations('navigation');
+  const t = useTranslations("navigation");
 
   const handleClose = () => {
     if (onClose) onClose();
@@ -129,14 +129,14 @@ export default function Menu({ isOpen = false, onClose }: MenuProps) {
 
   // Get the current path without the locale prefix
   const getPathWithoutLocale = () => {
-    const segments = pathname.split('/');
+    const segments = pathname.split("/");
     // Remove locale if present
-    if (segments[1] === 'en') {
-      return '/' + segments.slice(2).join('/');
+    if (segments[1] === "en") {
+      return "/" + segments.slice(2).join("/");
     }
     // For German (default), pathname might not have locale prefix
-    if (segments[1] === 'de') {
-      return '/' + segments.slice(2).join('/');
+    if (segments[1] === "de") {
+      return "/" + segments.slice(2).join("/");
     }
     // If no locale prefix, return as is
     return pathname;
@@ -152,7 +152,7 @@ export default function Menu({ isOpen = false, onClose }: MenuProps) {
     handleClose();
 
     // Use the href from the clicked element which already has the correct locale
-    const actualHref = e.currentTarget.getAttribute('href') || href;
+    const actualHref = e.currentTarget.getAttribute("href") || href;
 
     // Navigate first
     router.push(actualHref);
@@ -175,47 +175,47 @@ export default function Menu({ isOpen = false, onClose }: MenuProps) {
 
       <MenuContainer $isOpen={isOpen}>
         <MenuItem
-          href={locale === 'de' ? "/" : "/en/"}
+          href={locale === "de" ? "/" : "/en/"}
           onClick={(e: React.MouseEvent<HTMLAnchorElement>) =>
             handleNavigation(e, "/")
           }
         >
-          {t('home')}
+          {t("home")}
         </MenuItem>
         <MenuItem
-          href={locale === 'de' ? "/portfolio#top" : "/en/portfolio#top"}
+          href={locale === "de" ? "/portfolio#top" : "/en/portfolio#top"}
           onClick={(e: React.MouseEvent<HTMLAnchorElement>) =>
             handleNavigation(e, "/portfolio#top")
           }
         >
-          {t('portfolio')}
+          {t("portfolio")}
         </MenuItem>
         <MenuItem
-          href={locale === 'de' ? "/preis#top" : "/en/preis#top"}
+          href={locale === "de" ? "/preis#top" : "/en/preis#top"}
           onClick={(e: React.MouseEvent<HTMLAnchorElement>) =>
             handleNavigation(e, "/preis#top")
           }
         >
-          {t('price')}
+          {t("price")}
         </MenuItem>
         <MenuItem
-          href={locale === 'de' ? "/reitbetriebe#top" : "/en/reitbetriebe#top"}
+          href={locale === "de" ? "/reitbetriebe#top" : "/en/reitbetriebe#top"}
           onClick={(e: React.MouseEvent<HTMLAnchorElement>) =>
             handleNavigation(e, "/reitbetriebe#top")
           }
         >
-          {t('ridingStables')}
+          {t("ridingStables")}
         </MenuItem>
         <MenuItem
-          href={locale === 'de' ? "/kontakt#top" : "/en/kontakt#top"}
+          href={locale === "de" ? "/kontakt#top" : "/en/kontakt#top"}
           onClick={(e: React.MouseEvent<HTMLAnchorElement>) =>
             handleNavigation(e, "/kontakt#top")
           }
         >
-          {t('contact')}
+          {t("contact")}
         </MenuItem>
         <ExternalLink
-          href="https://instagram.com"
+          href="https://www.instagram.com/equine_humangazephotography/"
           target="_blank"
           rel="noopener noreferrer"
           onClick={handleClose}
@@ -223,17 +223,17 @@ export default function Menu({ isOpen = false, onClose }: MenuProps) {
           Instagram
         </ExternalLink>
         <LanguageSwitcher>
-          <LanguageLink 
-            href={currentPath} 
-            $active={locale === 'de'}
+          <LanguageLink
+            href={currentPath}
+            $active={locale === "de"}
             onClick={handleClose}
           >
             DE
           </LanguageLink>
-          <span style={{ color: '#ccc' }}>|</span>
-          <LanguageLink 
-            href={`/en${currentPath}`} 
-            $active={locale === 'en'}
+          <span style={{ color: "#ccc" }}>|</span>
+          <LanguageLink
+            href={`/en${currentPath}`}
+            $active={locale === "en"}
             onClick={handleClose}
           >
             EN

@@ -55,7 +55,7 @@ const SliderSection = styled.div`
   min-height: 0;
 `;
 
-const Title = styled.h1`
+const Title = styled.div`
   font-size: 2.5rem;
   font-weight: 400;
   color: #333;
