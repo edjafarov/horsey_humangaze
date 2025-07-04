@@ -1,62 +1,50 @@
-"use client";
+import { Metadata } from "next";
+import DramatischClient from "./DramatischClient";
 
-import styled from "styled-components";
-import PageContent from "@/app/components/PageContent";
-import PinImage from "@/app/components/PinImage";
-import AlbumSelector from "@/app/components/AlbumSelector";
-import { portfolioDramatischMetadata } from "@/app/data/imageMetadata";
-import { useTranslations } from "next-intl";
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  
+  const title = locale === 'de' 
+    ? 'Dramatische Pferdefotografie | Human Gaze Photography'
+    : 'Dramatic Horse Photography | Human Gaze Photography';
+    
+  const description = locale === 'de'
+    ? 'Kraftvolle und dramatische Pferdeportraits mit beeindruckender Lichtstimmung. Entdecken Sie die majestätische Seite der Pferde in unserer Galerie.'
+    : 'Powerful and dramatic horse portraits with impressive lighting. Discover the majestic side of horses in our gallery.';
 
-const Title = styled.h1`
-  font-size: 2.5rem;
-  color: #333;
-  margin-bottom: 2rem;
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      locale: locale === 'de' ? 'de_DE' : 'en_US',
+      url: locale === 'de' 
+        ? 'https://equine.humangaze-photography.com/portfolio/dramatisch' 
+        : 'https://equine.humangaze-photography.com/en/portfolio/dramatisch',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
+    alternates: {
+      canonical: locale === 'de' 
+        ? 'https://equine.humangaze-photography.com/portfolio/dramatisch' 
+        : 'https://equine.humangaze-photography.com/en/portfolio/dramatisch',
+      languages: {
+        'de': 'https://equine.humangaze-photography.com/portfolio/dramatisch',
+        'en': 'https://equine.humangaze-photography.com/en/portfolio/dramatisch',
+      },
+    },
+  };
+}
 
-  @media (max-width: 768px) {
-    font-size: 2rem;
-  }
-`;
-
-const Gallery = styled.div`
-  column-count: 3;
-  column-gap: 1.5rem;
-
-  @media (max-width: 768px) {
-    column-count: 1;
-  }
-
-  > div {
-    break-inside: avoid;
-    margin-bottom: 1.5rem;
-  }
-`;
-
-export default function DramatischPortfolio() {
-  const t = useTranslations("portfolio");
-
-  return (
-    <PageContent>
-      <Title>{t("albums.dramatisch")}</Title>
-      <AlbumSelector />
-      <Gallery>
-        {portfolioDramatischMetadata.map((imageMetadata, index) => (
-          <PinImage
-            key={index}
-            src={imageMetadata.src}
-            alt={imageMetadata.alt}
-            description={imageMetadata.description}
-            width={0}
-            height={0}
-            sizes="(max-width: 768px) 90vw, 30vw"
-            quality={90}
-            style={{
-              width: "100%",
-              height: "auto",
-            }}
-            title={imageMetadata.title}
-          />
-        ))}
-      </Gallery>
-    </PageContent>
-  );
+export default function DramatischPage() {
+  return <DramatischClient />;
 }

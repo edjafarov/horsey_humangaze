@@ -4,7 +4,8 @@ import styled from "styled-components";
 import PageContent from "@/app/components/PageContent";
 import PinImage from "@/app/components/PinImage";
 import AlbumSelector from "@/app/components/AlbumSelector";
-import { portfolioNiedlichBilingual, getLocalizedMetadata } from "@/app/data/bilingualImageMetadata";
+import BreadcrumbSchema from "@/app/components/BreadcrumbSchema";
+import { portfolioDramatischBilingual, getLocalizedMetadata } from "@/app/data/bilingualImageMetadata";
 import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 
@@ -32,15 +33,32 @@ const Gallery = styled.div`
   }
 `;
 
-export default function NiedlichPortfolio() {
+export default function DramatischClient() {
   const t = useTranslations("portfolio");
   const params = useParams();
   const locale = params.locale as 'de' | 'en';
-  const localizedMetadata = getLocalizedMetadata(portfolioNiedlichBilingual, locale);
+  const localizedMetadata = getLocalizedMetadata(portfolioDramatischBilingual, locale);
+  
+  const breadcrumbItems = [
+    {
+      name: locale === 'de' ? 'Startseite' : 'Home',
+      url: locale === 'de' ? 'https://equine.humangaze-photography.com' : 'https://equine.humangaze-photography.com/en'
+    },
+    {
+      name: t('title'),
+      url: locale === 'de' ? 'https://equine.humangaze-photography.com/portfolio' : 'https://equine.humangaze-photography.com/en/portfolio'
+    },
+    {
+      name: t('albums.dramatisch'),
+      url: locale === 'de' ? 'https://equine.humangaze-photography.com/portfolio/dramatisch' : 'https://equine.humangaze-photography.com/en/portfolio/dramatisch'
+    }
+  ];
 
   return (
-    <PageContent>
-      <Title>{t("albums.niedlich")}</Title>
+    <>
+      <BreadcrumbSchema items={breadcrumbItems} />
+      <PageContent>
+      <Title>{t("albums.dramatisch")}</Title>
       <AlbumSelector />
       <Gallery>
         {localizedMetadata.map((imageMetadata, index) => (
@@ -62,5 +80,6 @@ export default function NiedlichPortfolio() {
         ))}
       </Gallery>
     </PageContent>
+    </>
   );
 }

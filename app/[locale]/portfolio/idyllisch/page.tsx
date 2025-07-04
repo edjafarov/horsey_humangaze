@@ -4,8 +4,9 @@ import styled from "styled-components";
 import PageContent from "@/app/components/PageContent";
 import PinImage from "@/app/components/PinImage";
 import AlbumSelector from "@/app/components/AlbumSelector";
-import { portfolioIdyllischMetadata } from "@/app/data/imageMetadata";
+import { portfolioIdyllischBilingual, getLocalizedMetadata } from "@/app/data/bilingualImageMetadata";
 import { useTranslations } from "next-intl";
+import { useParams } from "next/navigation";
 
 const Title = styled.h1`
   font-size: 2.5rem;
@@ -33,13 +34,16 @@ const Gallery = styled.div`
 
 export default function IdyllischPortfolio() {
   const t = useTranslations("portfolio");
+  const params = useParams();
+  const locale = params.locale as 'de' | 'en';
+  const localizedMetadata = getLocalizedMetadata(portfolioIdyllischBilingual, locale);
 
   return (
     <PageContent>
       <Title>{t("albums.idyllisch")}</Title>
       <AlbumSelector />
       <Gallery>
-        {portfolioIdyllischMetadata.map((imageMetadata, index) => (
+        {localizedMetadata.map((imageMetadata, index) => (
           <PinImage
             key={index}
             src={imageMetadata.src}

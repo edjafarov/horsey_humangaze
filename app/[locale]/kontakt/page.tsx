@@ -1,32 +1,50 @@
-'use client';
+import { Metadata } from "next";
+import KontaktClient from "./KontaktClient";
 
-import styled from 'styled-components';
-import PageContent from '@/app/components/PageContent';
-import { useTranslations } from 'next-intl';
-
-const Title = styled.h1`
-  font-size: 2.5rem;
-  color: #333;
-  margin-bottom: 2rem;
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
   
-  @media (max-width: 768px) {
-    font-size: 2rem;
-  }
-`;
+  const title = locale === 'de' 
+    ? 'Kontakt - Pferdefotograf | Human Gaze Photography'
+    : 'Contact - Horse Photographer | Human Gaze Photography';
+    
+  const description = locale === 'de'
+    ? 'Kontaktieren Sie uns für Ihr individuelles Pferdefotoshooting. Professionelle Beratung und maßgeschneiderte Fotografie-Lösungen in ganz Deutschland.'
+    : 'Contact us for your individual horse photoshoot. Professional consultation and tailored photography solutions throughout Germany.';
 
-const Text = styled.p`
-  font-size: 1.1rem;
-  line-height: 1.6;
-  color: #666;
-`;
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      locale: locale === 'de' ? 'de_DE' : 'en_US',
+      url: locale === 'de' 
+        ? 'https://equine.humangaze-photography.com/kontakt' 
+        : 'https://equine.humangaze-photography.com/en/kontakt',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
+    alternates: {
+      canonical: locale === 'de' 
+        ? 'https://equine.humangaze-photography.com/kontakt' 
+        : 'https://equine.humangaze-photography.com/en/kontakt',
+      languages: {
+        'de': 'https://equine.humangaze-photography.com/kontakt',
+        'en': 'https://equine.humangaze-photography.com/en/kontakt',
+      },
+    },
+  };
+}
 
-export default function Kontakt() {
-  const t = useTranslations('pages.contact');
-  
-  return (
-    <PageContent>
-      <Title id="top">{t('title')}</Title>
-      <Text>{t('content')}</Text>
-    </PageContent>
-  );
+export default function KontaktPage() {
+  return <KontaktClient />;
 }

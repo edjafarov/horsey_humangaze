@@ -4,8 +4,9 @@ import styled from "styled-components";
 import PageContent from "@/app/components/PageContent";
 import PinImage from "@/app/components/PinImage";
 import AlbumSelector from "@/app/components/AlbumSelector";
-import { portfolioHochzeitMetadata } from "@/app/data/imageMetadata";
+import { portfolioHochzeitBilingual, getLocalizedMetadata } from "@/app/data/bilingualImageMetadata";
 import { useTranslations } from "next-intl";
+import { useParams } from "next/navigation";
 
 const Title = styled.h1`
   font-size: 2.5rem;
@@ -33,13 +34,16 @@ const Gallery = styled.div`
 
 export default function HochzeitPortfolio() {
   const t = useTranslations("portfolio");
+  const params = useParams();
+  const locale = params.locale as 'de' | 'en';
+  const localizedMetadata = getLocalizedMetadata(portfolioHochzeitBilingual, locale);
 
   return (
     <PageContent>
       <Title>{t("albums.hochzeit")}</Title>
       <AlbumSelector />
       <Gallery>
-        {portfolioHochzeitMetadata.map((imageMetadata, index) => (
+        {localizedMetadata.map((imageMetadata, index) => (
           <PinImage
             key={index}
             src={imageMetadata.src}

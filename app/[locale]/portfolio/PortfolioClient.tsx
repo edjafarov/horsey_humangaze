@@ -2,9 +2,8 @@
 
 import styled from "styled-components";
 import Image from "next/image";
+import PageContent from "@/app/components/PageContent";
 import Link from "next/link";
-import { useParams, usePathname } from "next/navigation";
-import { useTranslations } from "next-intl";
 import {
   portfolioIdyllischBilingual,
   portfolioNiedlichBilingual,
@@ -12,6 +11,19 @@ import {
   portfolioHochzeitBilingual,
   getLocalizedMetadata,
 } from "@/app/data/bilingualImageMetadata";
+import { useTranslations } from 'next-intl';
+import { useParams } from "next/navigation";
+
+
+const Title = styled.h1`
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 2rem;
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
+`;
 
 const AlbumsContainer = styled.div`
   display: flex;
@@ -20,6 +32,7 @@ const AlbumsContainer = styled.div`
   margin-bottom: 3rem;
   flex-wrap: wrap;
   width: 100%;
+
   margin-left: auto;
   margin-right: auto;
 
@@ -29,14 +42,14 @@ const AlbumsContainer = styled.div`
   }
 `;
 
-const AlbumCover = styled(Link)<{ $isActive: boolean }>`
+const AlbumCover = styled(Link)`
   position: relative;
   flex: 1;
   max-width: calc(25% - 1.5em);
   cursor: pointer;
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: 3px solid ${(props) => (props.$isActive ? "#333" : "transparent")};
+  border: 3px solid transparent;
   display: block;
   text-decoration: none;
 
@@ -77,13 +90,10 @@ const AlbumTitle = styled.div`
   text-transform: capitalize;
 `;
 
-export default function AlbumSelector() {
+export default function PortfolioClient() {
   const params = useParams();
-  const pathname = usePathname();
   const locale = params.locale as 'de' | 'en';
-  const t = useTranslations("portfolio");
-  
-  const currentAlbum = pathname.split("/").pop();
+  const t = useTranslations('portfolio');
 
   const albums = [
     {
@@ -105,31 +115,34 @@ export default function AlbumSelector() {
   ];
 
   return (
-    <AlbumsContainer>
-      {albums.map((album) => (
-        <AlbumCover
-          key={album.name}
-          href={`/${locale === "de" ? "" : `${locale}/`}portfolio/${album.name}`}
-          $isActive={currentAlbum === album.name}
-        >
-          <AlbumImageWrapper>
-            <AlbumImage
-              src={album.cover.src}
-              alt={album.cover.alt}
-              width={0}
-              height={0}
-              quality={90}
-              sizes="(max-width: 768px) 50vw, 25vw"
-              style={{
-                width: "100%",
-                height: "auto",
-              }}
-              title={album.cover.title}
-            />
-            <AlbumTitle>{t(`albums.${album.name}`)}</AlbumTitle>
-          </AlbumImageWrapper>
-        </AlbumCover>
-      ))}
-    </AlbumsContainer>
+    <PageContent>
+      <Title id="top">{t('title')}</Title>
+
+      <AlbumsContainer>
+        {albums.map((album) => (
+          <AlbumCover
+            key={album.name}
+            href={`/${locale === "de" ? "" : `${locale}/`}portfolio/${album.name}`}
+          >
+            <AlbumImageWrapper>
+              <AlbumImage
+                src={album.cover.src}
+                alt={album.cover.alt}
+                width={0}
+                height={0}
+                quality={90}
+                sizes="(max-width: 768px) 50vw, 25vw"
+                style={{
+                  width: "100%",
+                  height: "auto",
+                }}
+                title={album.cover.title}
+              />
+              <AlbumTitle>{t(`albums.${album.name}`)}</AlbumTitle>
+            </AlbumImageWrapper>
+          </AlbumCover>
+        ))}
+      </AlbumsContainer>
+    </PageContent>
   );
 }

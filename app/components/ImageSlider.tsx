@@ -3,7 +3,8 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import { imageMetadata } from "../data/imageMetadata";
+import { allSliderImagesBilingual, getLocalizedMetadata } from "../data/bilingualImageMetadata";
+import { useParams } from "next/navigation";
 
 const TRANSITION_DURATION = 300;
 const DRAG_THRESHOLD = 0.15;
@@ -147,7 +148,9 @@ interface DragState {
 }
 
 export default function ImageSlider() {
-  const imageList = useMemo(() => imageMetadata, []);
+  const params = useParams();
+  const locale = params.locale as 'de' | 'en';
+  const imageList = useMemo(() => getLocalizedMetadata(allSliderImagesBilingual, locale), [locale]);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [translateX, setTranslateX] = useState(0);
