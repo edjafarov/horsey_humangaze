@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "../globals.css";
 import LayoutWrapper from "../components/LayoutWrapper";
 import {
-  getJsonLdData,
   bilingualImageMetadata,
 } from "../data/bilingualImageMetadata";
 import { NextIntlClientProvider } from "next-intl";
@@ -89,7 +88,6 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   // Providing all messages to the client
   const messages = await getMessages();
-  const jsonLd = getJsonLdData(locale as "de" | "en");
 
   // Organization schema
   const organizationSchema = {
@@ -162,10 +160,6 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}

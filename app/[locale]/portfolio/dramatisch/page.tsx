@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import DramatischClient from "./DramatischClient";
+import { getPortfolioJsonLdData } from "@/app/data/bilingualImageMetadata";
 
 export async function generateMetadata({
   params,
@@ -45,6 +46,21 @@ export async function generateMetadata({
   };
 }
 
-export default function DramatischPage() {
-  return <DramatischClient />;
+export default async function DramatischPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const jsonLd = getPortfolioJsonLdData('dramatisch', locale as 'de' | 'en');
+  
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <DramatischClient />
+    </>
+  );
 }

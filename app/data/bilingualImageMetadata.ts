@@ -722,6 +722,99 @@ export function getJsonLdData(locale: "de" | "en" = "de") {
   };
 }
 
+// Generate JSON-LD for specific portfolio albums
+export function getPortfolioJsonLdData(
+  portfolio: "idyllisch" | "niedlich" | "dramatisch" | "hochzeit",
+  locale: "de" | "en" = "de"
+) {
+  // Import dynamically to avoid circular dependency
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const { generateSeoImageUrl } = require('@/app/utils/seoUrlGenerator');
+  
+  // Get the appropriate images based on portfolio type
+  let images: BilingualImageMetadata[] = [];
+  let portfolioName = "";
+  let portfolioDescription = "";
+  
+  switch (portfolio) {
+    case "idyllisch":
+      images = portfolioIdyllischBilingual;
+      portfolioName = locale === "de" 
+        ? "Idyllische Pferdefotografie" 
+        : "Idyllic Horse Photography";
+      portfolioDescription = locale === "de"
+        ? "Idyllische und harmonische Pferdefotografie in natürlicher Umgebung. Emotionale Portraits zeigen die friedliche und sanfte Seite der Pferde."
+        : "Idyllic and harmonious horse photography in natural surroundings. Emotional portraits show the peaceful and gentle side of horses.";
+      break;
+    case "niedlich":
+      images = portfolioNiedlichBilingual;
+      portfolioName = locale === "de" 
+        ? "Niedliche Pferdefotografie - Fohlen und junge Pferde" 
+        : "Cute Horse Photography - Foals and Young Horses";
+      portfolioDescription = locale === "de"
+        ? "Bezaubernde Fotografie von Fohlen und jungen Pferden. Niedliche Momente zeigen die Unschuld und natürliche Schönheit der Jungtiere."
+        : "Charming photography of foals and young horses. Cute moments show the innocence and natural beauty of young animals.";
+      break;
+    case "dramatisch":
+      images = portfolioDramatischBilingual;
+      portfolioName = locale === "de" 
+        ? "Dramatische Pferdefotografie" 
+        : "Dramatic Horse Photography";
+      portfolioDescription = locale === "de"
+        ? "Kraftvolle und dramatische Pferdefotografie mit intensiven Kontrasten. Eindrucksvolle Schwarz-Weiß Aufnahmen zeigen Stärke und Anmut der Pferde."
+        : "Powerful and dramatic horse photography with intense contrasts. Impressive black and white captures show strength and grace of horses.";
+      break;
+    case "hochzeit":
+      images = portfolioHochzeitBilingual;
+      portfolioName = locale === "de" 
+        ? "Hochzeits-Pferdefotografie" 
+        : "Wedding Horse Photography";
+      portfolioDescription = locale === "de"
+        ? "Romantische Hochzeitsfotografie mit Pferden. Unvergessliche Momente für besondere Anlässe mit eleganten Pferden und emotionalen Aufnahmen."
+        : "Romantic wedding photography with horses. Unforgettable moments for special occasions with elegant horses and emotional captures.";
+      break;
+  }
+  
+  const localizedImages = getLocalizedMetadata(images, locale);
+  const baseUrl = "https://equine.humangaze-photography.com";
+  const portfolioUrl = `${baseUrl}/${locale}/portfolio/${portfolio}`;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "ImageGallery",
+    name: portfolioName,
+    description: portfolioDescription,
+    url: portfolioUrl,
+    inLanguage: locale,
+    isPartOf: {
+      "@type": "WebSite",
+      name: locale === "de" 
+        ? "Human Gaze Photography - Pferdefotografie" 
+        : "Human Gaze Photography - Horse Photography",
+      url: locale === "de" ? baseUrl : `${baseUrl}/en`
+    },
+    image: localizedImages.map((img, index) => {
+      const seoUrl = generateSeoImageUrl(img.src, img.title, locale);
+      return {
+        "@type": "ImageObject",
+        name: img.title,
+        caption: img.description,
+        contentUrl: `${baseUrl}${seoUrl}`,
+        thumbnailUrl: `${baseUrl}${seoUrl}`,
+        description: img.description,
+        position: index + 1,
+        inLanguage: locale,
+      };
+    }),
+    numberOfItems: localizedImages.length,
+    author: {
+      "@type": "Person",
+      name: "Human Gaze Photography",
+      url: baseUrl,
+    },
+  };
+}
+
 // Example function to migrate existing metadata
 export function migrateToBlingual(existingMetadata: { src: string; title: string; description: string; alt: string }[]): BilingualImageMetadata[] {
   return existingMetadata.map(item => ({

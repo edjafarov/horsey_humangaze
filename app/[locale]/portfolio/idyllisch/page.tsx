@@ -1,66 +1,66 @@
-"use client";
+import { Metadata } from "next";
+import IdyllischClient from "./IdyllischClient";
+import { getPortfolioJsonLdData } from "@/app/data/bilingualImageMetadata";
 
-import styled from "styled-components";
-import PageContent from "@/app/components/PageContent";
-import PinImage from "@/app/components/PinImage";
-import AlbumSelector from "@/app/components/AlbumSelector";
-import { portfolioIdyllischBilingual, getLocalizedMetadata } from "@/app/data/bilingualImageMetadata";
-import { useTranslations } from "next-intl";
-import { useParams } from "next/navigation";
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  
+  const title = locale === 'de' 
+    ? 'Idyllische Pferdefotografie | Human Gaze Photography'
+    : 'Idyllic Horse Photography | Human Gaze Photography';
+    
+  const description = locale === 'de'
+    ? 'Idyllische und harmonische Pferdefotografie in natürlicher Umgebung. Emotionale Portraits zeigen die friedliche Seite der Pferde.'
+    : 'Idyllic and harmonious horse photography in natural surroundings. Emotional portraits show the peaceful side of horses.';
 
-const Title = styled.h1`
-  font-size: 2.5rem;
-  color: #333;
-  margin-bottom: 2rem;
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      locale: locale === 'de' ? 'de_DE' : 'en_US',
+      url: locale === 'de' 
+        ? 'https://equine.humangaze-photography.com/portfolio/idyllisch' 
+        : 'https://equine.humangaze-photography.com/en/portfolio/idyllisch',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
+    alternates: {
+      canonical: locale === 'de' 
+        ? 'https://equine.humangaze-photography.com/portfolio/idyllisch' 
+        : 'https://equine.humangaze-photography.com/en/portfolio/idyllisch',
+      languages: {
+        'de': 'https://equine.humangaze-photography.com/portfolio/idyllisch',
+        'en': 'https://equine.humangaze-photography.com/en/portfolio/idyllisch',
+      },
+    },
+  };
+}
 
-  @media (max-width: 768px) {
-    font-size: 2rem;
-  }
-`;
-
-const Gallery = styled.div`
-  column-count: 3;
-  column-gap: 1.5rem;
-
-  @media (max-width: 768px) {
-    column-count: 1;
-  }
-
-  > div {
-    break-inside: avoid;
-    margin-bottom: 1.5rem;
-  }
-`;
-
-export default function IdyllischPortfolio() {
-  const t = useTranslations("portfolio");
-  const params = useParams();
-  const locale = params.locale as 'de' | 'en';
-  const localizedMetadata = getLocalizedMetadata(portfolioIdyllischBilingual, locale);
-
+export default async function IdyllischPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const jsonLd = getPortfolioJsonLdData('idyllisch', locale as 'de' | 'en');
+  
   return (
-    <PageContent>
-      <Title>{t("albums.idyllisch")}</Title>
-      <AlbumSelector />
-      <Gallery>
-        {localizedMetadata.map((imageMetadata, index) => (
-          <PinImage
-            key={index}
-            src={imageMetadata.src}
-            alt={imageMetadata.alt}
-            description={imageMetadata.description}
-            width={0}
-            height={0}
-            sizes="(max-width: 768px) 90vw, 30vw"
-            quality={90}
-            style={{
-              width: "100%",
-              height: "auto",
-            }}
-            title={imageMetadata.title}
-          />
-        ))}
-      </Gallery>
-    </PageContent>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <IdyllischClient />
+    </>
   );
 }
