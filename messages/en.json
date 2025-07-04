@@ -46,7 +46,35 @@
     },
     "contact": {
       "title": "Contact",
-      "content": "Coming soon..."
+      "content": "I'd love to hear from you! Please use the contact form below or reach out to me directly.",
+      "form": {
+        "name": "Name",
+        "email": "Email",
+        "phone": "Phone",
+        "message": "Message",
+        "optional": "optional",
+        "submit": "Send Message",
+        "sending": "Sending...",
+        "emailPlaceholder": "your@email.com",
+        "phonePlaceholder": "+49 123 456789",
+        "messagePlaceholder": "Tell me about your project or inquiry..."
+      },
+      "validation": {
+        "contactRequired": "Please provide either an email address or phone number",
+        "invalidEmail": "Please enter a valid email address",
+        "invalidPhone": "Please enter a valid phone number",
+        "invalidName": "Please use only letters, hyphens, and periods",
+        "messageRequired": "Please enter a message",
+        "messageTooShort": "Message must be at least 10 characters long",
+        "submitError": "Failed to send message. Please try again later."
+      },
+      "successMessage": "Thank you for your message! I'll get back to you as soon as possible.",
+      "alternativeContact": "Or contact me directly:",
+      "directEmail": "Email",
+      "directPhone": "Phone",
+      "formTitle": "Send Message",
+      "directContactTitle": "Direct Contact",
+      "locationTitle": "Location"
     },
     "imprint": {
       "title": "Imprint",

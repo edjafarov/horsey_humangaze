@@ -160,7 +160,7 @@ export default function DatenschutzerklaerungClient() {
         <List>
           <li>Auskunftsrecht (Art. 15 DSGVO)</li>
           <li>Recht auf Berichtigung (Art. 16 DSGVO)</li>
-          <li>Recht auf Löschung („Recht auf Vergessenwerden") (Art. 17 DSGVO)</li>
+          <li>Recht auf Löschung (&quot;Recht auf Vergessenwerden&quot;) (Art. 17 DSGVO)</li>
           <li>Recht auf Einschränkung der Verarbeitung (Art. 18 DSGVO)</li>
           <li>Recht auf Datenübertragbarkeit (Art. 20 DSGVO)</li>
           <li>Widerspruchsrecht (Art. 21 DSGVO)</li>
