@@ -22,11 +22,19 @@ const Container = styled.div`
 const LeftColumn = styled.div`
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 968px) {
+    order: 2;
+  }
 `;
 
 const RightColumn = styled.div`
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 968px) {
+    order: 1;
+  }
 `;
 
 const Title = styled.h1`
