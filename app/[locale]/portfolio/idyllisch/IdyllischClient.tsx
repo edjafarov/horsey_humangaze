@@ -4,7 +4,10 @@ import styled from "styled-components";
 import PageContent from "@/app/components/PageContent";
 import PinImage from "@/app/components/PinImage";
 import AlbumSelector from "@/app/components/AlbumSelector";
-import { portfolioIdyllischBilingual, getLocalizedMetadata } from "@/app/data/bilingualImageMetadata";
+import {
+  portfolioIdyllischBilingual,
+  getLocalizedMetadata,
+} from "@/app/data/bilingualImageMetadata";
 import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 
@@ -19,7 +22,7 @@ const Title = styled.h1`
 `;
 
 const Gallery = styled.div`
-  column-count: 4;
+  column-count: 3;
   column-gap: 1.5rem;
 
   @media (max-width: 1200px) {
@@ -43,8 +46,11 @@ const Gallery = styled.div`
 export default function IdyllischClient() {
   const t = useTranslations("portfolio");
   const params = useParams();
-  const locale = params.locale as 'de' | 'en';
-  const localizedMetadata = getLocalizedMetadata(portfolioIdyllischBilingual, locale);
+  const locale = params.locale as "de" | "en";
+  const localizedMetadata = getLocalizedMetadata(
+    portfolioIdyllischBilingual,
+    locale
+  );
 
   return (
     <PageContent>
