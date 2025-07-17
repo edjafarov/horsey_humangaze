@@ -1,5 +1,5 @@
-import { generateSeoImageUrl } from './seoUrlGenerator';
-import type { BilingualImageMetadata } from '@/app/data/bilingualImageMetadata';
+import { generateSeoImageUrl } from "./seoUrlGenerator";
+import type { BilingualImageMetadata } from "@/app/data/bilingualImageMetadata";
 
 // Initialize maps
 let seoToOriginalMap: Map<string, string> | null = null;
@@ -15,8 +15,9 @@ function initializeMaps() {
     portfolioIdyllischBilingual,
     portfolioNiedlichBilingual,
     portfolioDramatischBilingual,
-    portfolioHochzeitBilingual
-  } = require('@/app/data/bilingualImageMetadata');
+    portfolioHochzeitBilingual,
+    IdyllischBilingualCover,
+  } = require("@/app/data/bilingualImageMetadata");
   /* eslint-enable @typescript-eslint/no-require-imports */
 
   const allImages: BilingualImageMetadata[] = [
@@ -24,7 +25,8 @@ function initializeMaps() {
     ...portfolioIdyllischBilingual,
     ...portfolioNiedlichBilingual,
     ...portfolioDramatischBilingual,
-    ...portfolioHochzeitBilingual
+    ...portfolioHochzeitBilingual,
+    IdyllischBilingualCover,
   ];
 
   seoToOriginalMap = new Map<string, string>();
@@ -33,20 +35,19 @@ function initializeMaps() {
   // Populate the maps
   allImages.forEach((image) => {
     // German URL
-    const germanUrl = generateSeoImageUrl(image.src, image.de.title, 'de');
+    const germanUrl = generateSeoImageUrl(image.src, image.de.title, "de");
     seoToOriginalMap!.set(germanUrl, image.src);
-    
+
     // English URL
-    const englishUrl = generateSeoImageUrl(image.src, image.en.title, 'en');
+    const englishUrl = generateSeoImageUrl(image.src, image.en.title, "en");
     if (englishUrl !== germanUrl) {
       seoToOriginalMap!.set(englishUrl, image.src);
     }
 
     originalToSeoMap!.set(image.src, {
       de: germanUrl,
-      en: englishUrl
+      en: englishUrl,
     });
-
   });
 }
 
@@ -61,7 +62,10 @@ export function getOriginalImagePath(seoUrl: string): string | undefined {
 /**
  * Get SEO URL from original path
  */
-export function getSeoUrlFromOriginal(originalPath: string, locale: 'de' | 'en'): string {
+export function getSeoUrlFromOriginal(
+  originalPath: string,
+  locale: "de" | "en"
+): string {
   initializeMaps();
   const seoUrls = originalToSeoMap!.get(originalPath);
   return seoUrls ? seoUrls[locale] : originalPath;

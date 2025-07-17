@@ -104,25 +104,108 @@ export const bilingualImageMetadata: BilingualImageMetadata[] = [
   },
 ];
 
+export const IdyllischBilingualCover: BilingualImageMetadata = {
+  src: "/images/portfolio/idyllisch/idyllisch1.jpg",
+  de: {
+    title:
+      "Idyllische Pferdefotografie - Fuchs Pferd Portrait im goldenen Sonnenuntergang",
+    description:
+      "Professionelle Pferdefotografie zeigt einen wunderschönen Fuchs im warmen Sonnenuntergang. Atmosphärische Aufnahme mit perfektem Licht für emotionale Pferdeportraits in idyllischer Stimmung.",
+    alt: "Fuchs Pferd Kopf im Profil mit Trense bei goldenem Sonnenuntergang",
+  },
+  en: {
+    title:
+      "Idyllic Horse Photography - Chestnut Horse Portrait in Golden Sunset",
+    description:
+      "Professional horse photography showcasing a beautiful chestnut in warm sunset. Atmospheric shot with perfect light for emotional horse portraits in idyllic mood.",
+    alt: "Chestnut horse head in profile with bridle at golden sunset",
+  },
+};
+
 // Portfolio Idyllisch - Example translations
 export const portfolioIdyllischBilingual: BilingualImageMetadata[] = [
+  // Index 1
   {
-    src: "/images/portfolio/idyllisch/idyllisch1.jpg",
+    src: "/images/portfolio/idyllisch/_V4A9140.jpg",
     de: {
-      title:
-        "Idyllische Pferdefotografie - Fuchs Pferd Portrait im goldenen Sonnenuntergang",
+      title: "Braunes Pferd im warmen Licht - Natürliche Pferdefotografie",
       description:
-        "Professionelle Pferdefotografie zeigt einen wunderschönen Fuchs im warmen Sonnenuntergang. Atmosphärische Aufnahme mit perfektem Licht für emotionale Pferdeportraits in idyllischer Stimmung.",
-      alt: "Fuchs Pferd Kopf im Profil mit Trense bei goldenem Sonnenuntergang",
+        "Natürliches Portrait eines braunen Pferdes in warmem Nachmittagslicht. Professionelle Tierfotografie nutzt goldene Stunde für atmosphärische und emotionale Pferdebilder.",
+      alt: "Braunes Pferd im warmen Nachmittagslicht",
     },
     en: {
-      title:
-        "Idyllic Horse Photography - Chestnut Horse Portrait in Golden Sunset",
+      title: "Brown Horse in Warm Light - Natural Horse Photography",
       description:
-        "Professional horse photography showcasing a beautiful chestnut in warm sunset. Atmospheric shot with perfect light for emotional horse portraits in idyllic mood.",
-      alt: "Chestnut horse head in profile with bridle at golden sunset",
+        "Natural portrait of a brown horse in warm afternoon light. Professional animal photography uses golden hour for atmospheric and emotional horse images.",
+      alt: "Brown horse in warm afternoon light",
     },
   },
+  // Index 2
+  {
+    src: "/images/portfolio/idyllisch/_V4A9154.jpg",
+    de: {
+      title:
+        "Dunkles Pferd mit weißer Blesse - Ausdrucksstarke Pferdefotografie",
+      description:
+        "Beeindruckendes Portrait eines dunklen Pferdes mit markanter weißer Blesse. Kunstvolle Pferdefotografie zeigt Charakterköpfe mit natürlichem Licht und perfekter Schärfe für ausdrucksstarke Tierportraits.",
+      alt: "Dunkles Pferd mit weißer Blesse im Portrait",
+    },
+    en: {
+      title: "Dark Horse with White Blaze - Expressive Horse Photography",
+      description:
+        "Impressive portrait of a dark horse with distinctive white blaze. Artistic horse photography showcases character heads with natural light and perfect sharpness for expressive animal portraits.",
+      alt: "Dark horse with white blaze in portrait",
+    },
+  },
+  // Index 3
+  {
+    src: "/images/portfolio/idyllisch/_V4A9143.jpg",
+    de: {
+      title: "Pferdeportrait in Seitenansicht - Klassische Pferdefotografie",
+      description:
+        "Klassisches Pferdeportrait in perfekter Seitenansicht. Professionelle Pferdefotografie zeigt edle Proportionen und natürliche Schönheit der Pferde in zeitloser Darstellung.",
+      alt: "Pferd in klassischer Seitenansicht",
+    },
+    en: {
+      title: "Horse Portrait in Side View - Classic Horse Photography",
+      description:
+        "Classic horse portrait in perfect side view. Professional horse photography shows noble proportions and natural beauty of horses in timeless representation.",
+      alt: "Horse in classic side view",
+    },
+  },
+  // Index 13 (was 13th in original array)
+  {
+    src: "/images/portfolio/idyllisch/_V4A9305.jpg",
+    de: {
+      title: "Pferd mit Halfter - Klassisches Pferdeportrait",
+      description:
+        "Klassisches Portrait eines Pferdes mit elegantem Halfter. Traditionelle Pferdefotografie in zeitgemäßer Umsetzung für anspruchsvolle Pferdebesitzer.",
+      alt: "Pferd mit elegantem Halfter im Portrait",
+    },
+    en: {
+      title: "Horse with Halter - Classic Horse Portrait",
+      description:
+        "Classic portrait of a horse with elegant halter. Traditional horse photography in contemporary implementation for discerning horse owners.",
+      alt: "Horse with elegant halter in portrait",
+    },
+  },
+  // Index 10 (was 10th in original array)
+  {
+    src: "/images/portfolio/idyllisch/_V4A9256.jpg",
+    de: {
+      title: "Entspanntes Pferd - Ruhige Momente in der Pferdefotografie",
+      description:
+        "Friedliches Portrait eines entspannten Pferdes in ruhiger Atmosphäre. Meditative Pferdefotografie zeigt die gelassene Seite der majestätischen Tiere.",
+      alt: "Entspanntes Pferd in ruhiger Atmosphäre",
+    },
+    en: {
+      title: "Relaxed Horse - Calm Moments in Horse Photography",
+      description:
+        "Peaceful portrait of a relaxed horse in calm atmosphere. Meditative horse photography shows the serene side of the majestic animals.",
+      alt: "Relaxed horse in calm atmosphere",
+    },
+  },
+  // Index 4
   {
     src: "/images/portfolio/idyllisch/_V4A9116-Edit.jpg",
     de: {
@@ -140,142 +223,7 @@ export const portfolioIdyllischBilingual: BilingualImageMetadata[] = [
       alt: "White grey horse looking curiously over stable door",
     },
   },
-  {
-    src: "/images/portfolio/idyllisch/_V4A9154.jpg",
-    de: {
-      title:
-        "Dunkles Pferd mit weißer Blesse - Ausdrucksstarke Pferdefotografie",
-      description:
-        "Beeindruckendes Portrait eines dunklen Pferdes mit markanter weißer Blesse. Kunstvolle Pferdefotografie zeigt Charakterköpfe mit natürlichem Licht und perfekter Schärfe für ausdrucksstarke Tierportraits.",
-      alt: "Dunkles Pferd mit weißer Blesse im Portrait",
-    },
-    en: {
-      title: "Dark Horse with White Blaze - Expressive Horse Photography",
-      description:
-        "Impressive portrait of a dark horse with distinctive white blaze. Artistic horse photography showcases character heads with natural light and perfect sharpness for expressive animal portraits.",
-      alt: "Dark horse with white blaze in portrait",
-    },
-  },
-  {
-    src: "/images/portfolio/idyllisch/_V4A9140.jpg",
-    de: {
-      title: "Braunes Pferd im warmen Licht - Natürliche Pferdefotografie",
-      description:
-        "Natürliches Portrait eines braunen Pferdes in warmem Nachmittagslicht. Professionelle Tierfotografie nutzt goldene Stunde für atmosphärische und emotionale Pferdebilder.",
-      alt: "Braunes Pferd im warmen Nachmittagslicht",
-    },
-    en: {
-      title: "Brown Horse in Warm Light - Natural Horse Photography",
-      description:
-        "Natural portrait of a brown horse in warm afternoon light. Professional animal photography uses golden hour for atmospheric and emotional horse images.",
-      alt: "Brown horse in warm afternoon light",
-    },
-  },
-  {
-    src: "/images/portfolio/idyllisch/_V4A9143.jpg",
-    de: {
-      title: "Pferdeportrait in Seitenansicht - Klassische Pferdefotografie",
-      description:
-        "Klassisches Pferdeportrait in perfekter Seitenansicht. Professionelle Pferdefotografie zeigt edle Proportionen und natürliche Schönheit der Pferde in zeitloser Darstellung.",
-      alt: "Pferd in klassischer Seitenansicht",
-    },
-    en: {
-      title: "Horse Portrait in Side View - Classic Horse Photography",
-      description:
-        "Classic horse portrait in perfect side view. Professional horse photography shows noble proportions and natural beauty of horses in timeless representation.",
-      alt: "Horse in classic side view",
-    },
-  },
-  {
-    src: "/images/portfolio/idyllisch/_V4A9169-Edit.jpg",
-    de: {
-      title: "Verträumtes Pferdeportrait - Emotionale Tierfotografie",
-      description:
-        "Verträumtes und emotionales Pferdeportrait mit sanftem Ausdruck. Einfühlsame Pferdefotografie zeigt die sensible Seite der Pferde in harmonischer Bildkomposition.",
-      alt: "Pferd mit verträumtem sanften Ausdruck",
-    },
-    en: {
-      title: "Dreamy Horse Portrait - Emotional Animal Photography",
-      description:
-        "Dreamy and emotional horse portrait with gentle expression. Sensitive horse photography shows the sensitive side of horses in harmonious composition.",
-      alt: "Horse with dreamy gentle expression",
-    },
-  },
-  {
-    src: "/images/portfolio/idyllisch/_V4A9182.jpg",
-    de: {
-      title: "Pferd im Gegenlicht - Atmosphärische Pferdefotografie",
-      description:
-        "Stimmungsvolles Pferdeportrait im magischen Gegenlicht. Kreative Pferdefotografie nutzt natürliche Lichteffekte für besonders atmosphärische und künstlerische Aufnahmen.",
-      alt: "Pferd im stimmungsvollen Gegenlicht",
-    },
-    en: {
-      title: "Horse in Backlight - Atmospheric Horse Photography",
-      description:
-        "Atmospheric horse portrait in magical backlight. Creative horse photography uses natural light effects for particularly atmospheric and artistic shots.",
-      alt: "Horse in atmospheric backlight",
-    },
-  },
-  {
-    src: "/images/portfolio/idyllisch/_V4A9190.jpg",
-    de: {
-      title: "Aufmerksames Pferd - Lebendige Pferdefotografie",
-      description:
-        "Lebendiges Portrait eines aufmerksamen Pferdes mit gespitzten Ohren. Dynamische Pferdefotografie fängt wache Momente und natürliche Neugier der Tiere ein.",
-      alt: "Aufmerksames Pferd mit gespitzten Ohren",
-    },
-    en: {
-      title: "Alert Horse - Vivid Horse Photography",
-      description:
-        "Vivid portrait of an alert horse with pricked ears. Dynamic horse photography captures awake moments and natural curiosity of the animals.",
-      alt: "Alert horse with pricked ears",
-    },
-  },
-  {
-    src: "/images/portfolio/idyllisch/_V4A9196-Edit.jpg",
-    de: {
-      title: "Pferd in weicher Beleuchtung - Sanfte Pferdefotografie",
-      description:
-        "Sanftes Pferdeportrait in weicher, natürlicher Beleuchtung. Harmonische Pferdefotografie betont die friedliche und ruhige Ausstrahlung der Tiere.",
-      alt: "Pferd in weicher natürlicher Beleuchtung",
-    },
-    en: {
-      title: "Horse in Soft Lighting - Gentle Horse Photography",
-      description:
-        "Gentle horse portrait in soft, natural lighting. Harmonious horse photography emphasizes the peaceful and calm charisma of the animals.",
-      alt: "Horse in soft natural lighting",
-    },
-  },
-  {
-    src: "/images/portfolio/idyllisch/_V4A9220.jpg",
-    de: {
-      title: "Pferd auf der Weide - Natürliche Umgebung Pferdefotografie",
-      description:
-        "Idyllische Aufnahme eines Pferdes in seiner natürlichen Weideumgebung. Authentische Pferdefotografie zeigt Tiere in ihrem gewohnten Lebensraum.",
-      alt: "Pferd in natürlicher Weideumgebung",
-    },
-    en: {
-      title: "Horse in Pasture - Natural Environment Horse Photography",
-      description:
-        "Idyllic capture of a horse in its natural pasture environment. Authentic horse photography shows animals in their familiar habitat.",
-      alt: "Horse in natural pasture environment",
-    },
-  },
-  {
-    src: "/images/portfolio/idyllisch/_V4A9256.jpg",
-    de: {
-      title: "Entspanntes Pferd - Ruhige Momente in der Pferdefotografie",
-      description:
-        "Friedliches Portrait eines entspannten Pferdes in ruhiger Atmosphäre. Meditative Pferdefotografie zeigt die gelassene Seite der majestätischen Tiere.",
-      alt: "Entspanntes Pferd in ruhiger Atmosphäre",
-    },
-    en: {
-      title: "Relaxed Horse - Calm Moments in Horse Photography",
-      description:
-        "Peaceful portrait of a relaxed horse in calm atmosphere. Meditative horse photography shows the serene side of the majestic animals.",
-      alt: "Relaxed horse in calm atmosphere",
-    },
-  },
+  // Index 11 (was 11th in original array)
   {
     src: "/images/portfolio/idyllisch/_V4A9283-Edit.jpg",
     de: {
@@ -291,6 +239,192 @@ export const portfolioIdyllischBilingual: BilingualImageMetadata[] = [
       alt: "Horse in warm golden evening light",
     },
   },
+  // Index 5
+  {
+    src: "/images/portfolio/idyllisch/_V4A9169-Edit.jpg",
+    de: {
+      title: "Verträumtes Pferdeportrait - Emotionale Tierfotografie",
+      description:
+        "Verträumtes und emotionales Pferdeportrait mit sanftem Ausdruck. Einfühlsame Pferdefotografie zeigt die sensible Seite der Pferde in harmonischer Bildkomposition.",
+      alt: "Pferd mit verträumtem sanften Ausdruck",
+    },
+    en: {
+      title: "Dreamy Horse Portrait - Emotional Animal Photography",
+      description:
+        "Dreamy and emotional horse portrait with gentle expression. Sensitive horse photography shows the sensitive side of horses in harmonious composition.",
+      alt: "Horse with dreamy gentle expression",
+    },
+  },
+  // Index 7
+  {
+    src: "/images/portfolio/idyllisch/_V4A9190.jpg",
+    de: {
+      title: "Aufmerksames Pferd - Lebendige Pferdefotografie",
+      description:
+        "Lebendiges Portrait eines aufmerksamen Pferdes mit gespitzten Ohren. Dynamische Pferdefotografie fängt wache Momente und natürliche Neugier der Tiere ein.",
+      alt: "Aufmerksames Pferd mit gespitzten Ohren",
+    },
+    en: {
+      title: "Alert Horse - Vivid Horse Photography",
+      description:
+        "Vivid portrait of an alert horse with pricked ears. Dynamic horse photography captures awake moments and natural curiosity of the animals.",
+      alt: "Alert horse with pricked ears",
+    },
+  },
+  // Index 22 (was 22nd in original array)
+  {
+    src: "/images/portfolio/idyllisch/_V4A0349-Edit.jpg",
+    de: {
+      title:
+        "Elegante Verbindung - Frau mit braunem Pferd in natürlicher Umgebung",
+      description:
+        "Stilvolle Aufnahme einer Frau im schwarzen Spitzenkleid mit ihrem braunen Pferd auf der Sommerweide. Professionelle Pferdefotografie zeigt Eleganz und natürliche Schönheit.",
+      alt: "Frau im schwarzen Spitzenkleid küsst ihr braunes Pferd auf der Weide",
+    },
+    en: {
+      title: "Elegant Connection - Woman with Brown Horse in Natural Setting",
+      description:
+        "Stylish capture of a woman in black lace dress with her brown horse on summer pasture. Professional horse photography shows elegance and natural beauty.",
+      alt: "Woman in black lace dress kissing her brown horse on pasture",
+    },
+  },
+  // Index 24 (was 24th in original array)
+  {
+    src: "/images/portfolio/idyllisch/_V4A0370-Edit.Liquify-3-2.jpg",
+    de: {
+      title: "Vertraute Nähe - Emotionale Schwarz-Weiß Pferdefotografie",
+      description:
+        "Ausdrucksstarkes Schwarz-Weiß Portrait zeigt die innige Verbindung zwischen Mensch und Pferd. Zeitlose Pferdefotografie fängt Vertrauen und Zuneigung in künstlerischer Form ein.",
+      alt: "Inniger Moment zwischen Frau und Pferd in künstlerischem Schwarz-Weiß",
+    },
+    en: {
+      title: "Intimate Closeness - Emotional Black and White Horse Photography",
+      description:
+        "Expressive black and white portrait shows the intimate connection between human and horse. Timeless horse photography captures trust and affection in artistic form.",
+      alt: "Intimate moment between woman and horse in artistic black and white",
+    },
+  },
+  // Index 23 (was 23rd in original array)
+  {
+    src: "/images/portfolio/idyllisch/_V4A0368-Edit 2-2.jpg",
+    de: {
+      title:
+        "Innige Begrüßung - Emotionales Pferdeportrait in natürlicher Umgebung",
+      description:
+        "Berührende Aufnahme zeigt den liebevollen Moment zwischen Frau und Pferd. Die natürliche Umgebung unterstreicht die Authentizität dieser emotionalen Pferdefotografie.",
+      alt: "Frau im schwarzen Kleid begrüßt liebevoll ihr braunes Pferd auf der Weide",
+    },
+    en: {
+      title:
+        "Tender Greeting - Emotional Horse Portrait in Natural Environment",
+      description:
+        "Touching capture shows the loving moment between woman and horse. The natural environment emphasizes the authenticity of this emotional horse photography.",
+      alt: "Woman in black dress lovingly greeting her brown horse on pasture",
+    },
+  },
+  // Index 25 (was 25th in original array)
+  {
+    src: "/images/portfolio/idyllisch/_V4A0370-Edit.Liquify-3.jpg",
+    de: {
+      title: "Sanfte Berührung - Gefühlvolle Pferdefotografie in Farbe",
+      description:
+        "Warme und gefühlvolle Aufnahme zeigt den zärtlichen Moment zwischen Frau und Pferd. Emotionale Pferdefotografie in natürlichen Farbtönen voller Harmonie.",
+      alt: "Frau und braunes Pferd in zärtlicher Berührung auf der Weide",
+    },
+    en: {
+      title: "Gentle Touch - Emotional Horse Photography in Color",
+      description:
+        "Warm and emotional capture shows the tender moment between woman and horse. Emotional horse photography in natural color tones full of harmony.",
+      alt: "Woman and brown horse in tender touch on pasture",
+    },
+  },
+  // Index 27 (was 27th in original array)
+  {
+    src: "/images/portfolio/idyllisch/_V4A0384-Edit.jpg",
+    de: {
+      title: "Eleganz auf der Weide - Stilvolle Pferdefotografie im Abendlicht",
+      description:
+        "Stilvolle Aufnahme einer Frau im schwarzen Kleid mit ihrem Pferd im warmen Abendlicht. Professionelle Pferdefotografie verbindet Eleganz mit natürlicher Schönheit.",
+      alt: "Frau im eleganten schwarzen Kleid steht mit ihrem Pferd auf der abendlichen Weide",
+    },
+    en: {
+      title: "Elegance on Pasture - Stylish Horse Photography in Evening Light",
+      description:
+        "Stylish capture of a woman in black dress with her horse in warm evening light. Professional horse photography combines elegance with natural beauty.",
+      alt: "Woman in elegant black dress standing with her horse on evening pasture",
+    },
+  },
+  // Index 19 (was 19th in original array)
+  {
+    src: "/images/portfolio/idyllisch/_V4A0281-Edit-2.jpg",
+    de: {
+      title:
+        "Magischer Spaziergang bei Sonnenuntergang - Romantische Pferdefotografie",
+      description:
+        "Stimmungsvolle Aufnahme einer Frau mit ihrem Pferd im warmen Abendlicht. Die goldene Stunde zaubert eine romantische Atmosphäre für diese idyllische Pferdefotografie.",
+      alt: "Frau und Pferd spazieren gemeinsam im warmen goldenen Sonnenuntergang",
+    },
+    en: {
+      title: "Magical Walk at Sunset - Romantic Horse Photography",
+      description:
+        "Atmospheric capture of a woman with her horse in warm evening light. The golden hour creates a romantic atmosphere for this idyllic horse photography.",
+      alt: "Woman and horse walking together in warm golden sunset",
+    },
+  },
+  // Index 20 (was 20th in original array)
+  {
+    src: "/images/portfolio/idyllisch/_V4A0299.jpg",
+    de: {
+      title:
+        "Lebensfreude mit Pferd im Wasser - Dynamische Schwarz-Weiß Pferdefotografie",
+      description:
+        "Ausdrucksstarke Schwarz-Weiß Aufnahme zeigt pure Lebensfreude beim gemeinsamen Lauf durch das Wasser. Künstlerische Pferdefotografie fängt Bewegung und Emotion in zeitloser Ästhetik ein.",
+      alt: "Frau und dunkles Pferd laufen dynamisch durch Wasser in Schwarz-Weiß",
+    },
+    en: {
+      title:
+        "Joy of Life with Horse in Water - Dynamic Black and White Horse Photography",
+      description:
+        "Expressive black and white capture shows pure joy of life while running together through water. Artistic horse photography captures movement and emotion in timeless aesthetics.",
+      alt: "Woman and dark horse running dynamically through water in black and white",
+    },
+  },
+  // Index 21 (was 21st in original array)
+  {
+    src: "/images/portfolio/idyllisch/_V4A0301-2-Edit.jpg",
+    de: {
+      title:
+        "Vertrauter Moment im Gegenlicht - Emotionale Schwarz-Weiß Pferdefotografie",
+      description:
+        "Innige Schwarz-Weiß Aufnahme zeigt die tiefe Verbindung zwischen Frau und Pferd im stimmungsvollen Gegenlicht. Künstlerische Pferdefotografie voller Emotion und Nähe.",
+      alt: "Frau und Pferd in vertrautem Moment im Gegenlicht, künstlerisches Schwarz-Weiß Portrait",
+    },
+    en: {
+      title:
+        "Intimate Moment in Backlight - Emotional Black and White Horse Photography",
+      description:
+        "Intimate black and white capture shows the deep connection between woman and horse in atmospheric backlight. Artistic horse photography full of emotion and closeness.",
+      alt: "Woman and horse in intimate moment in backlight, artistic black and white portrait",
+    },
+  },
+  // Index 18 (was 18th in original array)
+  {
+    src: "/images/portfolio/idyllisch/_V4A0262-Edit-2.jpg",
+    de: {
+      title:
+        "Frau und Pferd im goldenen Sonnenuntergang - Idyllische Pferdefotografie",
+      description:
+        "Harmonische Aufnahme einer Frau im Blumenkleid, die gemeinsam mit einem braunen Pferd durch die goldene Abendlandschaft wandert. Emotionale Pferdefotografie zeigt die besondere Verbindung zwischen Mensch und Pferd.",
+      alt: "Frau im Blumenkleid und braunes Pferd wandern gemeinsam im goldenen Sonnenuntergang",
+    },
+    en: {
+      title: "Woman and Horse in Golden Sunset - Idyllic Horse Photography",
+      description:
+        "Harmonious capture of a woman in floral dress walking together with a brown horse through the golden evening landscape. Emotional horse photography shows the special connection between human and horse.",
+      alt: "Woman in floral dress and brown horse walking together in golden sunset",
+    },
+  },
+  // Index 12 (was 12th in original array)
   {
     src: "/images/portfolio/idyllisch/_V4A9290.jpg",
     de: {
@@ -304,81 +438,6 @@ export const portfolioIdyllischBilingual: BilingualImageMetadata[] = [
       description:
         "Impressive close-up of a horse head with fine details. Precise horse photography shows expression and character in impressive sharpness.",
       alt: "Detailed close-up of a horse head",
-    },
-  },
-  {
-    src: "/images/portfolio/idyllisch/_V4A9305.jpg",
-    de: {
-      title: "Pferd mit Halfter - Klassisches Pferdeportrait",
-      description:
-        "Klassisches Portrait eines Pferdes mit elegantem Halfter. Traditionelle Pferdefotografie in zeitgemäßer Umsetzung für anspruchsvolle Pferdebesitzer.",
-      alt: "Pferd mit elegantem Halfter im Portrait",
-    },
-    en: {
-      title: "Horse with Halter - Classic Horse Portrait",
-      description:
-        "Classic portrait of a horse with elegant halter. Traditional horse photography in contemporary implementation for discerning horse owners.",
-      alt: "Horse with elegant halter in portrait",
-    },
-  },
-  {
-    src: "/images/portfolio/idyllisch/_V4A9526.jpg",
-    de: {
-      title: "Pferd in Bewegung - Dynamische Pferdefotografie",
-      description:
-        "Dynamische Aufnahme eines Pferdes in natürlicher Bewegung. Lebendige Pferdefotografie fängt Eleganz und Kraft der Tiere in Aktion ein.",
-      alt: "Pferd in eleganter natürlicher Bewegung",
-    },
-    en: {
-      title: "Horse in Motion - Dynamic Horse Photography",
-      description:
-        "Dynamic capture of a horse in natural movement. Vivid horse photography captures elegance and power of the animals in action.",
-      alt: "Horse in elegant natural movement",
-    },
-  },
-  {
-    src: "/images/portfolio/idyllisch/_V4A9552.jpg",
-    de: {
-      title: "Pferd und Natur - Harmonische Landschaftsfotografie",
-      description:
-        "Harmonische Verbindung von Pferd und Naturlandschaft. Ganzheitliche Pferdefotografie zeigt Tiere als Teil ihrer natürlichen Umgebung.",
-      alt: "Pferd harmonisch in Naturlandschaft integriert",
-    },
-    en: {
-      title: "Horse and Nature - Harmonious Landscape Photography",
-      description:
-        "Harmonious connection of horse and natural landscape. Holistic horse photography shows animals as part of their natural environment.",
-      alt: "Horse harmoniously integrated in natural landscape",
-    },
-  },
-  {
-    src: "/images/portfolio/idyllisch/_V4A9614-Edit.jpg",
-    de: {
-      title: "Vertrautes Pferdeportrait - Intime Tierfotografie",
-      description:
-        "Intimes und vertrautes Pferdeportrait mit sanftem Blick. Einfühlsame Pferdefotografie zeigt die emotionale Verbindung zwischen Mensch und Tier.",
-      alt: "Pferd mit vertrautem sanften Blick",
-    },
-    en: {
-      title: "Intimate Horse Portrait - Close Animal Photography",
-      description:
-        "Intimate and familiar horse portrait with gentle gaze. Sensitive horse photography shows the emotional connection between human and animal.",
-      alt: "Horse with trusting gentle gaze",
-    },
-  },
-  {
-    src: "/images/portfolio/idyllisch/_V4A9627.jpg",
-    de: {
-      title: "Pferd im Morgentau - Frische Naturfotografie",
-      description:
-        "Frische Morgenaufnahme eines Pferdes im taufrischen Gras. Natürliche Pferdefotografie nutzt die besondere Atmosphäre der frühen Stunden.",
-      alt: "Pferd im morgendlichen Tau auf der Weide",
-    },
-    en: {
-      title: "Horse in Morning Dew - Fresh Nature Photography",
-      description:
-        "Fresh morning capture of a horse in dew-fresh grass. Natural horse photography uses the special atmosphere of early hours.",
-      alt: "Horse in morning dew on pasture",
     },
   },
 ];

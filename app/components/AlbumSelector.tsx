@@ -6,11 +6,11 @@ import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import {
-  portfolioIdyllischBilingual,
   portfolioNiedlichBilingual,
   portfolioDramatischBilingual,
   portfolioHochzeitBilingual,
   getLocalizedMetadata,
+  IdyllischBilingualCover,
 } from "@/app/data/bilingualImageMetadata";
 import { useSeoImageUrl } from "@/app/hooks/useSeoImageUrl";
 
@@ -36,7 +36,9 @@ const AlbumCover = styled(Link)<{ $isActive: boolean }>`
   max-width: calc(25% - 1.5em);
   cursor: pointer;
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
   border: 3px solid ${(props) => (props.$isActive ? "#333" : "transparent")};
   display: block;
   text-decoration: none;
@@ -79,7 +81,11 @@ const AlbumTitle = styled.div`
 `;
 
 // Separate component to use the hook properly
-function AlbumSelectorImage({ cover }: { cover: { src: string; alt: string; title: string } }) {
+function AlbumSelectorImage({
+  cover,
+}: {
+  cover: { src: string; alt: string; title: string };
+}) {
   const seoUrl = useSeoImageUrl(cover.src);
   return (
     <AlbumImage
@@ -101,9 +107,9 @@ function AlbumSelectorImage({ cover }: { cover: { src: string; alt: string; titl
 export default function AlbumSelector() {
   const params = useParams();
   const pathname = usePathname();
-  const locale = params.locale as 'de' | 'en';
+  const locale = params.locale as "de" | "en";
   const t = useTranslations("portfolio");
-  
+
   const currentAlbum = pathname.split("/").pop();
 
   const albums = [
@@ -113,7 +119,7 @@ export default function AlbumSelector() {
     },
     {
       name: "idyllisch",
-      cover: getLocalizedMetadata(portfolioIdyllischBilingual, locale)[0],
+      cover: getLocalizedMetadata([IdyllischBilingualCover], locale)[0],
     },
     {
       name: "niedlich",

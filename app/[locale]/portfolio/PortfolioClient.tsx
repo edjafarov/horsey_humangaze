@@ -11,10 +11,9 @@ import {
   portfolioHochzeitBilingual,
   getLocalizedMetadata,
 } from "@/app/data/bilingualImageMetadata";
-import { useTranslations } from 'next-intl';
+import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 import { useSeoImageUrl } from "@/app/hooks/useSeoImageUrl";
-
 
 const Title = styled.h1`
   font-size: 2.5rem;
@@ -49,7 +48,9 @@ const AlbumCover = styled(Link)`
   max-width: calc(25% - 1.5em);
   cursor: pointer;
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
   border: 3px solid transparent;
   display: block;
   text-decoration: none;
@@ -92,7 +93,11 @@ const AlbumTitle = styled.div`
 `;
 
 // Separate component to use the hook properly
-function AlbumCoverImage({ cover }: { cover: { src: string; alt: string; title: string } }) {
+function AlbumCoverImage({
+  cover,
+}: {
+  cover: { src: string; alt: string; title: string };
+}) {
   const seoUrl = useSeoImageUrl(cover.src);
   return (
     <AlbumImage
@@ -113,8 +118,8 @@ function AlbumCoverImage({ cover }: { cover: { src: string; alt: string; title: 
 
 export default function PortfolioClient() {
   const params = useParams();
-  const locale = params.locale as 'de' | 'en';
-  const t = useTranslations('portfolio');
+  const locale = params.locale as "de" | "en";
+  const t = useTranslations("portfolio");
 
   const albums = [
     {
@@ -137,7 +142,7 @@ export default function PortfolioClient() {
 
   return (
     <PageContent>
-      <Title >{t('title')}</Title>
+      <Title>{t("title")}</Title>
 
       <AlbumsContainer>
         {albums.map((album) => (
