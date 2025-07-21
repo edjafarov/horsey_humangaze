@@ -10,6 +10,7 @@ import {
   portfolioDramatischBilingual,
   portfolioHochzeitBilingual,
   getLocalizedMetadata,
+  IdyllischBilingualCover,
 } from "@/app/data/bilingualImageMetadata";
 import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
@@ -128,7 +129,7 @@ export default function PortfolioClient() {
     },
     {
       name: "idyllisch",
-      cover: getLocalizedMetadata(portfolioIdyllischBilingual, locale)[0],
+      cover: getLocalizedMetadata([IdyllischBilingualCover], locale)[0],
     },
     {
       name: "niedlich",
