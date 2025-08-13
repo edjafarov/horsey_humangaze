@@ -14,10 +14,43 @@ const Title = styled.h1`
   }
 `;
 
-const Text = styled.p`
+const Text = styled.div`
   font-size: 1.1rem;
-  line-height: 1.6;
+  line-height: 1.8;
   color: #666;
+
+  p {
+    margin-bottom: 1.5rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  ul {
+    margin: 2rem 0;
+    padding-left: 0;
+    list-style: none;
+  }
+
+  li {
+    margin-bottom: 1.2rem;
+    padding-left: 1.5rem;
+    position: relative;
+
+    &:before {
+      content: "•";
+      color: #333;
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+      font-size: 1.2rem;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 `;
 
 export default function ReitbetriebeClient() {
@@ -26,7 +59,7 @@ export default function ReitbetriebeClient() {
   return (
     <PageContent>
       <Title>{t("title")}</Title>
-      <Text>{t("content")}</Text>
+      <Text dangerouslySetInnerHTML={{ __html: t.raw("content") }} />
     </PageContent>
   );
 }
