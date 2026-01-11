@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import styled from 'styled-components';
-import PageContent from '@/app/components/PageContent';
-import { useRouter } from 'next/navigation';
-import { useParams } from 'next/navigation';
+import styled from "styled-components";
+import PageContent from "@/app/components/PageContent";
+import { useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 
 const Title = styled.h1`
   font-size: 2.5rem;
   color: #333;
   margin-bottom: 3rem;
   text-align: center;
-  
+
   @media (max-width: 768px) {
     font-size: 2rem;
     margin-bottom: 2rem;
@@ -22,7 +22,7 @@ const PackagesGrid = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
   margin-bottom: 3rem;
-  
+
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
     gap: 1.5rem;
@@ -35,15 +35,18 @@ const PackageCard = styled.div`
   border-radius: 12px;
   padding: 2rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
   cursor: pointer;
-  
+
   &:hover {
     transform: translateY(-4px);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
     border-color: #333;
   }
-  
+
   &:active {
     transform: translateY(-2px);
   }
@@ -74,7 +77,7 @@ const PackageFeature = styled.li`
   color: #666;
   font-size: 0.95rem;
   border-bottom: 1px solid #f5f5f5;
-  
+
   &:last-child {
     border-bottom: none;
   }
@@ -122,11 +125,11 @@ const AdditionalItem = styled.li`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  
+
   &:last-child {
     border-bottom: none;
   }
-  
+
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: flex-start;
@@ -139,149 +142,162 @@ const AdditionalPrice = styled.span`
   font-weight: 600;
 `;
 
-
 export default function PreisClient() {
   const router = useRouter();
   const params = useParams();
   const locale = params.locale as string;
 
-  const handlePlanSelect = (planName: string, planPrice: string, planFeatures: string[]) => {
+  const handlePlanSelect = (
+    planName: string,
+    planPrice: string,
+    planFeatures: string[]
+  ) => {
     const planDetails = `Hallo! Ich interessiere mich für das "${planName}" Paket (${planPrice}).
 
 Paket-Details:
-${planFeatures.map(feature => `• ${feature}`).join('\n')}
+${planFeatures.map((feature) => `• ${feature}`).join("\n")}
 
 Ich würde gerne weitere Informationen erhalten und einen Termin vereinbaren.`;
 
     const encodedMessage = encodeURIComponent(planDetails);
-    router.push(`/${locale}/kontakt?plan=${encodeURIComponent(planName)}&message=${encodedMessage}`);
+    router.push(
+      `/${locale}/kontakt?plan=${encodeURIComponent(planName)}&message=${encodedMessage}`
+    );
   };
 
   return (
     <PageContent>
       <Title>Preise und Pakete</Title>
-      
+
       <PackagesGrid>
-        <PackageCard onClick={() => handlePlanSelect(
-          'Minimalistisch',
-          '100 €',
-          [
-            '30 Minuten Fotoshooting',
-            '10 Fotos mit Farbkorrektur (digital)',
-            'Bei mind. 2 Kund:innen zur gleichen Zeit und am gleichen Ort möglich',
-            'zzgl. Fahrtkosten (0,30 €/km ab 12209)'
-          ]
-        )}>
+        <PackageCard
+          onClick={() =>
+            handlePlanSelect("Minimalistisch", "100 €", [
+              "30 Minuten Fotoshooting",
+              "5 Fotos mit Farbkorrektur (digital)",
+              "Bei mind. 2 Kund:innen zur gleichen Zeit und am gleichen Ort möglich",
+              "zzgl. Fahrtkosten (0,30 €/km ab 12209)",
+            ])
+          }
+        >
           <PackageTitle>Minimalistisch</PackageTitle>
           <PackagePrice>100 €</PackagePrice>
           <PackageFeatures>
             <PackageFeature>30 Minuten Fotoshooting</PackageFeature>
-            <PackageFeature>10 Fotos mit Farbkorrektur (digital)</PackageFeature>
+            <PackageFeature>5 Fotos mit Farbkorrektur (digital)</PackageFeature>
           </PackageFeatures>
           <PackageNote>
             Bei mind. 2 Kund:innen zur gleichen Zeit und am gleichen Ort möglich
           </PackageNote>
-          <TravelCost>
-            📍 zzgl. Fahrtkosten (0,30 €/km ab 12209)
-          </TravelCost>
+          <TravelCost>📍 zzgl. Fahrtkosten (0,30 €/km ab 12209)</TravelCost>
         </PackageCard>
 
-        <PackageCard onClick={() => handlePlanSelect(
-          'Entspannt',
-          '250 €',
-          [
-            '1 Stunde Fotoshooting',
-            '20 Bilder mit Farbkorrektur (digital)',
-            '1 Bild nach Wahl mit vollständiger Retusche',
-            'Professioneller Druck auf hochwertigem Fotopapier (20×30 cm)',
-            'zzgl. Fahrtkosten (0,30 €/km ab 12209)'
-          ]
-        )}>
+        <PackageCard
+          onClick={() =>
+            handlePlanSelect("Entspannt", "250 €", [
+              "1 Stunde Fotoshooting",
+              "10 Bilder mit Farbkorrektur (digital)",
+              "1 Bild nach Wahl mit vollständiger Retusche",
+
+              "zzgl. Fahrtkosten (0,30 €/km ab 12209)",
+            ])
+          }
+        >
           <PackageTitle>Entspannt</PackageTitle>
           <PackagePrice>250 €</PackagePrice>
           <PackageFeatures>
             <PackageFeature>1 Stunde Fotoshooting</PackageFeature>
-            <PackageFeature>20 Bilder mit Farbkorrektur (digital)</PackageFeature>
-            <PackageFeature>1 Bild nach Wahl mit vollständiger Retusche</PackageFeature>
-            <PackageFeature>Professioneller Druck auf hochwertigem Fotopapier (20×30 cm)</PackageFeature>
+            <PackageFeature>
+              10 Bilder mit Farbkorrektur (digital)
+            </PackageFeature>
+            <PackageFeature>
+              1 Bild nach Wahl mit vollständiger Retusche
+            </PackageFeature>
           </PackageFeatures>
-          <TravelCost>
-            📍 zzgl. Fahrtkosten (0,30 €/km ab 12209)
-          </TravelCost>
+          <TravelCost>📍 zzgl. Fahrtkosten (0,30 €/km ab 12209)</TravelCost>
         </PackageCard>
 
-        <PackageCard onClick={() => handlePlanSelect(
-          'Intensiv',
-          '350 €',
-          [
-            '2 Stunden Fotowalk',
-            '2–3 verschiedene Motive (z. B. auf der Weide, im Wald, am Stall)',
-            '2–3 Outfits pro Person möglich',
-            '30 Bilder mit Farbkorrektur (digital)',
-            '1 Foto nach Wahl mit vollständiger Retusche',
-            'Professioneller Druck (20×30 cm)',
-            'zzgl. Fahrtkosten (0,30 €/km ab 12209)'
-          ]
-        )}>
+        <PackageCard
+          onClick={() =>
+            handlePlanSelect("Intensiv", "350 €", [
+              "2 Stunden Fotowalk",
+              "2–3 verschiedene Motive (z. B. auf der Weide, im Wald, am Stall)",
+              "2–3 Outfits pro Person möglich",
+              "15 Bilder mit Farbkorrektur (digital)",
+              "1 Foto nach Wahl mit vollständiger Retusche",
+              "Professioneller Druck auf hochwertigem Fotopapier (20×30 cm)",
+              "zzgl. Fahrtkosten (0,30 €/km ab 12209)",
+            ])
+          }
+        >
           <PackageTitle>Intensiv</PackageTitle>
           <PackagePrice>350 €</PackagePrice>
           <PackageFeatures>
             <PackageFeature>2 Stunden Fotowalk</PackageFeature>
-            <PackageFeature>2–3 verschiedene Motive (z. B. auf der Weide, im Wald, am Stall)</PackageFeature>
+            <PackageFeature>
+              2–3 verschiedene Motive (z. B. auf der Weide, im Wald, am Stall)
+            </PackageFeature>
             <PackageFeature>2–3 Outfits pro Person möglich</PackageFeature>
-            <PackageFeature>30 Bilder mit Farbkorrektur (digital)</PackageFeature>
-            <PackageFeature>1 Foto nach Wahl mit vollständiger Retusche</PackageFeature>
-            <PackageFeature>Professioneller Druck (20×30 cm)</PackageFeature>
+            <PackageFeature>
+              15 Bilder mit Farbkorrektur (digital)
+            </PackageFeature>
+            <PackageFeature>
+              1 Foto nach Wahl mit vollständiger Retusche
+            </PackageFeature>
+            <PackageFeature>
+              Professioneller Druck auf hochwertigem Fotopapier (20×30 cm)
+            </PackageFeature>
           </PackageFeatures>
-          <TravelCost>
-            📍 zzgl. Fahrtkosten (0,30 €/km ab 12209)
-          </TravelCost>
+          <TravelCost>📍 zzgl. Fahrtkosten (0,30 €/km ab 12209)</TravelCost>
         </PackageCard>
 
-        <PackageCard onClick={() => handlePlanSelect(
-          'Fine Art Print',
-          '350 €',
-          [
-            '45 Minuten stilvolles Porträtshooting',
-            '15 Fotos zur Auswahl',
-            '1 Foto mit vollständiger Retusche',
-            'Professioneller Großformatdruck (60×40 cm)',
-            'zzgl. Fahrtkosten (0,30 €/km ab 12209)'
-          ]
-        )}>
+        <PackageCard
+          onClick={() =>
+            handlePlanSelect("Fine Art Print", "350 €", [
+              "45 Minuten stilvolles Porträtshooting",
+              "10 Fotos zur Auswahl",
+              "1 Foto mit vollständiger Retusche",
+              "Professioneller Großformatdruck (60×40 cm)",
+              "zzgl. Fahrtkosten (0,30 €/km ab 12209)",
+            ])
+          }
+        >
           <PackageTitle>Fine Art Print</PackageTitle>
           <PackagePrice>350 €</PackagePrice>
           <PackageFeatures>
-            <PackageFeature>45 Minuten stilvolles Porträtshooting</PackageFeature>
-            <PackageFeature>15 Fotos zur Auswahl</PackageFeature>
+            <PackageFeature>
+              45 Minuten stilvolles Porträtshooting
+            </PackageFeature>
+            <PackageFeature>10 Fotos zur Auswahl</PackageFeature>
             <PackageFeature>1 Foto mit vollständiger Retusche</PackageFeature>
-            <PackageFeature>Professioneller Großformatdruck (60×40 cm)</PackageFeature>
+            <PackageFeature>
+              Professioneller Großformatdruck (60×40 cm)
+            </PackageFeature>
           </PackageFeatures>
-          <TravelCost>
-            📍 zzgl. Fahrtkosten (0,30 €/km ab 12209)
-          </TravelCost>
+          <TravelCost>📍 zzgl. Fahrtkosten (0,30 €/km ab 12209)</TravelCost>
         </PackageCard>
 
-        <PackageCard onClick={() => handlePlanSelect(
-          'Album',
-          'Ab 550 €',
-          [
-            'Ab 2 Stunden Shooting',
-            'Ab 40 fertigen Bildern',
-            'Professionelle Gestaltung und Druck eines hochwertigen Fotobuchs ab 28 Seiten',
-            'zzgl. Fahrtkosten (0,30 €/km ab 12209)'
-          ]
-        )}>
+        <PackageCard
+          onClick={() =>
+            handlePlanSelect("Album", "Ab 550 €", [
+              "Ab 2 Stunden Shooting",
+              "Ab 40 fertigen Bildern",
+              "Professionelle Gestaltung und Druck eines hochwertigen Fotobuchs ab 28 Seiten",
+              "zzgl. Fahrtkosten (0,30 €/km ab 12209)",
+            ])
+          }
+        >
           <PackageTitle>Album</PackageTitle>
           <PackagePrice>Ab 550 €</PackagePrice>
           <PackageFeatures>
             <PackageFeature>Ab 2 Stunden Shooting</PackageFeature>
             <PackageFeature>Ab 40 fertigen Bildern</PackageFeature>
-            <PackageFeature>Professionelle Gestaltung und Druck eines hochwertigen Fotobuchs ab 28 Seiten</PackageFeature>
+            <PackageFeature>
+              Professionelle Gestaltung und Druck eines hochwertigen Fotobuchs
+              ab 28 Seiten
+            </PackageFeature>
           </PackageFeatures>
-          <TravelCost>
-            📍 zzgl. Fahrtkosten (0,30 €/km ab 12209)
-          </TravelCost>
+          <TravelCost>📍 zzgl. Fahrtkosten (0,30 €/km ab 12209)</TravelCost>
         </PackageCard>
       </PackagesGrid>
 
@@ -305,7 +321,9 @@ Ich würde gerne weitere Informationen erhalten und einen Termin vereinbaren.`;
             <AdditionalPrice>+40 €</AdditionalPrice>
           </AdditionalItem>
         </AdditionalList>
-        <PackageNote style={{ textAlign: 'center', marginTop: '1.5rem', fontSize: '1rem' }}>
+        <PackageNote
+          style={{ textAlign: "center", marginTop: "1.5rem", fontSize: "1rem" }}
+        >
           Gruppenrabatt möglich. Bringt gern Freund:innen aus eurem Stall.
         </PackageNote>
       </AdditionalSection>
