@@ -1,7 +1,16 @@
 'use client';
 
 import styled from 'styled-components';
-import PageContent from '@/app/components/PageContent';
+
+const PageWrapper = styled.div`
+  padding: 3rem 10%;
+  line-height: 1.7;
+  min-height: 100vh;
+
+  @media (max-width: 768px) {
+    padding: 2rem;
+  }
+`;
 
 const Title = styled.h1`
   font-size: 2.5rem;
@@ -58,7 +67,7 @@ const Link = styled.a`
 
 export default function DatenschutzerklaerungClient() {
   return (
-    <PageContent>
+    <PageWrapper>
       <Title>Datenschutzerklärung</Title>
       
       <Section>
@@ -203,6 +212,6 @@ export default function DatenschutzerklaerungClient() {
           oben genannte Adresse.
         </Text>
       </Section>
-    </PageContent>
+    </PageWrapper>
   );
 }

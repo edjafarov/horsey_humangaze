@@ -12,7 +12,12 @@ const intlMiddleware = createMiddleware({
 
 export default function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
-  
+
+  // Allow direct access to static image paths (gallery, hero)
+  if (pathname.startsWith('/images/gallery/') || pathname === '/images/hero.jpg') {
+    return NextResponse.next();
+  }
+
   // Check if it's a SEO-friendly image URL
   if (pathname.startsWith('/bilder/') || (pathname.startsWith('/images/') && !pathname.startsWith('/images/slider') && !pathname.startsWith('/images/portfolio'))) {
     const originalPath = getOriginalImagePath(pathname);
