@@ -1,6 +1,8 @@
 "use client";
 
 import styled from "styled-components";
+import HeroSection from "./HeroSection";
+import Tagline from "./Tagline";
 
 const PageContainer = styled.div`
   min-height: 100vh;
@@ -18,6 +20,8 @@ export default function LayoutWrapper({
 }) {
   return (
     <PageContainer>
+      <HeroSection />
+      <Tagline />
       <MainContent>{children}</MainContent>
     </PageContainer>
   );
