@@ -1,12 +1,21 @@
 "use client";
 
 import styled from "styled-components";
-import PageContent from "@/app/components/PageContent";
 import { useTranslations } from "next-intl";
 import { useState, useCallback, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { sendContactMessage } from "@/lib/sendMessageAction";
 import { useFormValidation, validators } from "@/lib/useFormValidation";
+
+const PageWrapper = styled.div`
+  padding: 3rem 10%;
+  line-height: 1.7;
+  min-height: 100vh;
+
+  @media (max-width: 768px) {
+    padding: 2rem;
+  }
+`;
 
 const Container = styled.div`
   display: grid;
@@ -413,7 +422,7 @@ export default function KontaktClient() {
   };
 
   return (
-    <PageContent>
+    <PageWrapper>
       <Title>{t("title")}</Title>
 
       <Container>
@@ -575,6 +584,6 @@ export default function KontaktClient() {
           </Form>
         </RightColumn>
       </Container>
-    </PageContent>
+    </PageWrapper>
   );
 }
