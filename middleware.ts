@@ -13,8 +13,8 @@ const intlMiddleware = createMiddleware({
 export default function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
-  // Allow direct access to static image paths (gallery, hero, galleries)
-  if (pathname.startsWith('/images/gallery/') || pathname === '/images/hero.jpg' || pathname.startsWith('/galleries/')) {
+  // Allow direct access to static image paths (gallery, hero)
+  if (pathname.startsWith('/images/gallery/') || pathname === '/images/hero.jpg') {
     return NextResponse.next();
   }
 
@@ -36,5 +36,5 @@ export default function middleware(request: NextRequest) {
 
 export const config = {
   // Include image paths and internationalization paths
-  matcher: ['/', '/(de|en)/:path*', '/bilder/:path*', '/images/:path*', '/((?!api|_next|_vercel|galleries|.*\\..*).*)']
+  matcher: ['/', '/(de|en)/:path*', '/bilder/:path*', '/images/:path*', '/((?!api|_next|_vercel|.*\\..*).*)']
 };
