@@ -19,7 +19,12 @@
       "Bash(git checkout:*)",
       "Bash(git restore:*)",
       "Bash(git commit:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(node /Users/edjafarov/work/horsey_humangaze/scripts/generate-gallery-data.js:*)",
+      "Bash(git merge:*)",
+      "Bash(while read slug)",
+      "Bash(do echo \"https://equine.humangaze-photography.com/galleries/$slug\")",
+      "Bash(done)"
     ],
     "deny": []
   }
