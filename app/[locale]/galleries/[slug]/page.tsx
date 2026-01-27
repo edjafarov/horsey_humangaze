@@ -10,6 +10,8 @@ interface GalleryPageProps {
   }>;
 }
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const galleries = getGalleries();
   return locales.flatMap(locale =>
