@@ -7,11 +7,6 @@ const nextConfig: NextConfig = {
   compiler: {
     styledComponents: true,
   },
-  outputFileTracingExcludes: {
-    '*': [
-      'public/galleries/**',
-    ],
-  },
 };
 
 export default withNextIntl(nextConfig);
